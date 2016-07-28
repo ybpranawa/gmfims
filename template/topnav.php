@@ -3,11 +3,11 @@
   <span class="sr-only">Toggle navigation</span>
 </a>
 
-<div class="col-md-8 text-center" style="color: #FFFFFF;font-size: 24px; padding: 5px;">
+<div class="col-md-8 text-center" style="color: #FFFFFF;font-size: 24px; padding: 5px; floating:left;">
   Integrated <b>Manpower </b>System
 </div>
 
-<div class="navbar-custom-menu">
+<div class="navbar-custom-menu" style="floating:left;">
   <ul class="nav navbar-nav">
     <?php
     if (isset($_SESSION['username'])) {
@@ -208,17 +208,17 @@
     <!-- User Account: style can be found in dropdown.less -->
     <li class="dropdown user user-menu">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-        <span class="hidden-xs">Alexander Pierce</span>
+        <img src="images/gmflogo.jpg" class="user-image" alt="User Image">
+        <span class="hidden-xs"><?php echo $_SESSION['username'];?></span>
       </a>
       <ul class="dropdown-menu">
         <!-- User image -->
         <li class="user-header">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="images/gmflogo.jpg" class="img-circle" alt="User Image">
 
           <p>
-            Alexander Pierce - Web Developer
-            <small>Member since Nov. 2012</small>
+            <?php echo $_SESSION['username'];?>
+            <small>last login : </small>
           </p>
         </li>
         <!-- Menu Body -->
@@ -242,15 +242,12 @@
             <a href="#" class="btn btn-default btn-flat">Profile</a>
           </div>
           <div class="pull-right">
-            <a href="#" class="btn btn-default btn-flat">Sign out</a>
+            <a href="controller/logoutmethod.php" class="btn btn-default btn-flat">Sign out</a>
           </div>
         </li>
       </ul>
     </li>
-    <!-- Control Sidebar Toggle Button -->
-    <li>
-      <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-    </li>
+    
     <?php
     }
     else
@@ -260,7 +257,7 @@
     <li class="dropdown user user-menu">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <img src="images/gmflogo.jpg" class="user-image" alt="User Image">
-        <span class="hidden-xs">GUEST</span>
+        <span class="hidden-xs">VISITOR</span>
       </a>
       <ul class="dropdown-menu">
         <!-- User image -->
@@ -268,7 +265,7 @@
           <img src="images/gmflogo.jpg" class="img-circle" alt="User Image">
 
           <p>
-            Welcome GUEST, <small>Please login to access this system</small>
+            Welcome VISITOR, <small>Please login to access this system</small>
             <small>Garuda Maintenance Facility Aeroasia</small>
           </p>
         </li>
@@ -281,10 +278,7 @@
         </li>
       </ul>
     </li>
-    <!-- Control Sidebar Toggle Button -->
-    <li>
-      <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-    </li>
+   
     <?php
     }
     ?>

@@ -4,16 +4,20 @@ require '../config/dbconnect.php';
 if ($statuskoneksi=1) 
 {
 	$username=$_POST['username'];
-	$passwd=$_POST['passwd'];	
+	$passwd=md5($username.$_POST['passwd']);	
 	$query="SELECT * FROM user_account WHERE user_id='".$username."' AND user_passwd='".$passwd."'";
 	$result=mysqli_query($conn,$query);
 	$row=mysqli_fetch_array($result);
 	if ($row>0) 
 	{
 		$statuslogin=1;
-		$pesan="You have logged in successfully";
 		$_SESSION['username']=$username;
-		header("Location: ../dashboard.php");
+		$ipaddr=$_SERVER['REMOTE_ADDR'];
+		$useragent=$_SERVER['HTTP_USER_AGENT'];
+		$query="UPDATE user_account SET last_login='".date('Y-m-d H:i:sa')."', user_ip='".$ipaddr."', user_agent='".$useragent."' WHERE user_id='".$username."'";
+		mysqli_query($conn,$query);
+		$pesan="You have logged in successfully";
+		header("Location: ../dashboard.php?pesan=$pesan");
 	}
 	else
 	{

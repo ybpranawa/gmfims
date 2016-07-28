@@ -1,5 +1,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--
+This system created by : Yoga Bayu Aji Pranawa (ybpranawa)
+Under licensed by Institut Teknologi Sepuluh Nopember and PT. GMF AeroAsia
+You can not modify, sell, distribute, etc this system without have a permission
+copyright @ 2016
+-->
 <title>Integrated Manpower System | GMF AeroAsia</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
