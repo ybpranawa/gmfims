@@ -127,7 +127,7 @@
       </li>
 
       
-      <li class="header">LABELS</li>
+      <li class="header">Documentation</li>
       <li><a href="#"><i class="fa fa-book"></i> <span>How to Use IMS</span></a></li>
       
     </ul>

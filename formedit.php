@@ -1,33 +1,22 @@
 <?php
+require 'config/dbconnect.php';
 session_start();
+if ($_POST['action']=='Del') {
+	$sql="DELETE FROM request WHERE request_id='".$_POST['reqid']."'";
+	$result=mysqli_query($conn, $sql);
+	$status=1;
+	$pesan="Your request has been deleted";
+	header("Location: editrequest.php?status=$status&pesan=$pesan");
+}
+else
+{
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<?php
-	require 'config/dbconnect.php';
 	require 'template/header.php';
 	?>
-	<script type="text/javascript">
-	$(document).ready(function(){
-	    var maxField = 10; //Input fields increment limitation
-	    var addButton = $('.add_button'); //Add button selector
-	    var wrapper = $('.field_wrap'); //Input field wrapper
-	    var fieldHTML = '<div class="input-group"><select class="form-control" name="actype[]"><option>B777 NG</option><option>B747</option><option>B777</option><option>A330</option><option>CRJ</option><option>ATR</option><option>B737 CL</option><option>A320</option></select><span class="input-group-addon"><a href="javascript:void(0);" class="remove_button" title="Remove field"><i class="fa fa-minus"></i></a></span></div>'; //New input field html 
-	    var x = 1; //Initial field counter is 1
-	    $(addButton).click(function(){ //Once add button is clicked
-	        if(x < maxField){ //Check maximum number of input fields
-	            x++; //Increment field counter
-	            $(wrapper).append(fieldHTML); // Add field html
-	        }
-	    });
-	    $(wrapper).on('click', '.remove_button', function(e){ //Once remove button is clicked
-	        e.preventDefault();
-	        $(this).parent('div').remove(); //Remove field html
-	        x--; //Decrement field counter
-	    });
-	});
-	</script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -52,15 +41,14 @@ session_start();
 		<!-- Content Header (Page header) -->
 	    <section class="content-header">
 	      <h1>
-	        Make Request
-	        <small>> Request to central planner</small>
+	        Edit Request
+	        <small>> Edit request form</small>
 	      </h1>
 	      <ol class="breadcrumb">
 	        <li><a href="#"><i class="fa fa-plus"></i> Request</a></li>
-	        <li class="active">Make Request</li>
+	        <li class="active">Edit Request</li>
 	      </ol>
 	    </section>
-
 	    <section class="content">
 	    	<div class="row">
 	    	
@@ -94,18 +82,34 @@ session_start();
 			            <!-- /.box-header -->
 			            <!-- form start -->
 			            <?php
-			            $sql="SELECT * FROM station";
-			            $result=mysqli_query($conn,$sql);			            
+			            $reqid=$_POST['reqid'];
+			            $sql="SELECT station_origin, request_date, request_qualification, pesawat_id, status_request, request_total,request_rating, requester_msg, reason, reimburstment
+	    				FROM request WHERE request_id='".$reqid."'";
+	    				$result=mysqli_query($conn,$sql);
+	    				$row=mysqli_fetch_array($result);
 			            ?>
-			            <form class="form-horizontal" action="controller/newrequest.php" method="post">
+			            <form class="form-horizontal" action="controller/editcurrequest.php" method="post">
 							<div class="box-body">
+								<div class="form-group">
+									<label for="station" class="col-md-4 control-label">Request ID :</label>
+									<div class="input-group">
+										<input type="text" value="<?php echo $reqid; ?>" id="requestid" name="requestid" class="form-control" placeholder=<?php echo $reqid;?> readonly="true">
+									</div>
+								</div>
+
 								<div class="form-group">
 									<label for="station" class="col-md-4 control-label">Station Origin :</label>
 									<div class="input-group">
 										<select class="form-control" name="station">
+											<option value="<?php echo $row['station_origin'];?>"><?php echo $row['station_origin'];?></option>
 											<?php
-											while ($row=mysqli_fetch_array($result)) {
-												echo "<option value='".$row['station_id']."'>".$row['station_id']."</option>";
+											$sql2="SELECT station_id FROM station";
+											$result2=mysqli_query($conn,$sql2);
+
+											while ($row2=mysqli_fetch_array($result2)) {
+												if ($row2['station_id']!=$row['station_origin']) {
+													echo "<option value='".$row2['station_id']."'>".$row2['station_id']."</option>";	
+												}
 											}
 											?>
 										</select>
@@ -128,7 +132,7 @@ session_start();
 								<div class="form-group">
 									<label for="qty" class="col-md-4 control-label">Qty :</label>
 									<div class="input-group col-md-2">
-										<input class="form-control" type="number" id="qty" name="qty">
+										<input class="form-control" type="number" id="qty" value="<?php echo $row['request_total'];?>" name="qty">
 									</div>
 								</div>
 
@@ -136,9 +140,17 @@ session_start();
 									<label for="qualification" class="col-md-4 control-label">Qualification :</label>
 									<div class="input-group">
 										<select class="form-control" name="qualification">
-										    <option value="AP">AP</option>
-										    <option value="EA">EA</option>
-										    <option value="T">Technician</option>
+											<option value="<?php echo $row['request_qualification'];?>"><?php echo $row['request_qualification'];?></option>
+											<?php
+											$sql2="SELECT qualification_id FROM qualification";
+											$result2=mysqli_query($conn,$sql2);
+											while ($row2=mysqli_fetch_array($result2)) {
+												if ($row2['qualification_id']!=$row['request_qualification']) {
+													echo "<option value='".$row2['qualification_id']."'>".$row2['qualification_id']."</option>";
+												}
+											}
+											
+											?>
 										</select>
 									</div>
 								</div>
@@ -151,9 +163,14 @@ session_start();
 									<label for="actype" class="col-md-4 control-label">Aircraft Type : </label>
 									<div class="input-group ">
 										<select class="form-control" name="actype">
+											<option value="<?php echo $row['pesawat_id'];?>"><?php echo $row['pesawat_id'];?></option>
 										    <?php
-										    while ($row=mysqli_fetch_array($result)) {
-										    	echo "<option value='".$row['pesawat_id']."'>".$row['pesawat_id']."</option>";
+										    $sql2="SELECT pesawat_id FROM pesawat";
+										    $result2=mysqli_query($conn,$sql2);
+										    while ($row2=mysqli_fetch_array($result2)) {
+										    	if ($row2['pesawat_id']!=$row['pesawat_id']) {
+										    		echo "<option value='".$row2['pesawat_id']."'>".$row2['pesawat_id']."</option>";	
+										    	}
 										    }
 										    ?>
 										</select>
@@ -169,9 +186,14 @@ session_start();
 									<label for="rating" class="col-md-4 control-label">Rating up to :</label>
 									<div class="input-group">
 										<select class="form-control" name="rating">
+											<option value="<?php echo $row['request_rating'];?>"><?php echo $row['request_rating'];?></option>
 										    <?php
-										    while ($row=mysqli_fetch_array($result)) {
-										    	echo "<option value='".$row['rating_id']."'>".$row['rating_id']."</option>";
+										    $sql2="SELECT rating_id FROM rating";
+										    $result2=mysqli_query($conn,$sql2);
+										    while ($row2=mysqli_fetch_array($result2)) {
+										    	if ($row2['rating_id']!=$row['request_rating']) {
+										    		echo "<option value='".$row2['rating_id']."'>".$row2['rating_id']."</option>";	
+										    	}
 										    }
 										    ?>
 										</select>
@@ -182,7 +204,7 @@ session_start();
 								<div class="form-group">
 									<label for="note" class="col-md-4 control-label">Additional note :</label>
 									<div class="input-group col-md-7">
-										<textarea name="note" id="note" class="form-control"></textarea>
+										<textarea name="note" id="note" class="form-control"><?php echo $row['requester_msg'];?></textarea>
 									</div>
 								</div>
 
@@ -194,15 +216,24 @@ session_start();
 								<div class="form-group">
 									<label for="reason" class="col-md-4 control-label">Reason :</label>
 									<div class="input-group">
-										<input class="form-control" name="reason" id="reason">
+										<input class="form-control" name="reason" id="reason" value="<?php echo $row['reason'];?>" placeholder="<?php echo $row['reason'];?>">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="reimburstment" class="col-md-4 control-label">Status Reimburstment :</label>
 									<div class="input-group">
 										<select class="form-control" name="reimburstment">
-										    <option value="1">PBTH</option>
-										    <option value="2">TMB</option>
+											<?php
+											if ($row['reimburstment']==1) {
+												echo "<option value='1'>PBTH</option>
+										    		<option value='2'>TMB</option>";	
+											}
+											else
+											{
+												echo "<option value='2'>TMB</option>
+										    		<option value='1'>PBTH</option>";		
+											}
+											?>
 										</select>
 									</div>
 								</div>
@@ -216,11 +247,9 @@ session_start();
 	    </section>
 	</div>
 </div>
-
 <?php
 require 'template/footer.php';
 ?>	
-
 <script type="text/javascript">
 	//Date range picker
     $('#reqdate').daterangepicker();
@@ -245,6 +274,8 @@ require 'template/footer.php';
         }
     );
 </script>
-
 </body>
 </html>
+<?php
+}
+?>
