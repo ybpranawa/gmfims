@@ -55,7 +55,7 @@ session_start();
 
 	    <?php
 	    $sql="SELECT request_id, station_origin, request_date, request_qualification, pesawat_id, status_request
-	    FROM request WHERE requester_id='".$_SESSION['username']."'";
+	    FROM request WHERE centralplanner_id='".$_SESSION['username']."' AND status_request='2'";
 	    $result=mysqli_query($conn,$sql);
 	    ?>
 
@@ -121,7 +121,7 @@ session_start();
 	                		<td>".$row['pesawat_id']."</td>	                		
 	                		<td>".$row2['status_desc']."</td>
 	                		<td>
-	                			<form method='post' action='formedit.php'>
+	                			<form method='post' action='formsignedit.php'>
 	                				<input type='submit' name='action' class='btn btn-success' value='Edit'/>
 	                				<input type='submit' name='action' class='btn btn-danger' value='Del'/>
 	                				<input type='hidden' name='reqid' value='".$row['request_id']."'/>

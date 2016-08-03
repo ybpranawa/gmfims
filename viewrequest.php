@@ -44,18 +44,18 @@ session_start();
 	<div class="content-wrapper" style="padding-top: 50px;">
 		<section class="content-header">
 	      <h1>
-	        Edit Request
-	        <small>> Edit submitted request</small>
+	        View Request
+	        <small>> View submitted request</small>
 	      </h1>
 	      <ol class="breadcrumb">
-	        <li><a href="#"><i class="fa fa-plus"></i> Request</a></li>
-	        <li class="active">Edit Request</li>
+	        <li><a href="#"><i class="fa fa-plus"></i> Assign</a></li>
+	        <li class="active">View Request</li>
 	      </ol>
 	    </section>
 
 	    <?php
 	    $sql="SELECT request_id, station_origin, request_date, request_qualification, pesawat_id, status_request
-	    FROM request WHERE requester_id='".$_SESSION['username']."'";
+	    FROM request WHERE status_request='1'";
 	    $result=mysqli_query($conn,$sql);
 	    ?>
 
@@ -87,7 +87,7 @@ session_start();
 	        <div class="col-xs-12">
 	          <div class="box">
 	            <div class="box-header">
-	              <h3 class="box-title">Edit Submitted Request</h3>
+	              <h3 class="box-title">View Submitted Request</h3>
 	            </div>
 	            <!-- /.box-header -->
 	            <div class="box-body">
@@ -121,9 +121,9 @@ session_start();
 	                		<td>".$row['pesawat_id']."</td>	                		
 	                		<td>".$row2['status_desc']."</td>
 	                		<td>
-	                			<form method='post' action='formedit.php'>
-	                				<input type='submit' name='action' class='btn btn-success' value='Edit'/>
-	                				<input type='submit' name='action' class='btn btn-danger' value='Del'/>
+	                			<form method='post' action='assignrequest.php'>
+	                				<input type='submit' name='action' class='btn btn-success' value='Assign'/>
+	                				<input type='submit' name='action' class='btn btn-danger' value='Reject'/>
 	                				<input type='hidden' name='reqid' value='".$row['request_id']."'/>
 	                			</form>	
 	                		</td>

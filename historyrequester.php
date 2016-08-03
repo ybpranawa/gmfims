@@ -109,17 +109,20 @@ session_start();
 	                	$sql2="SELECT status_desc FROM status_request WHERE status_id='".$row['status_request']."'";
 	                	$result2=mysqli_query($conn,$sql2);
 	                	$row2=mysqli_fetch_array($result2);
+	                	$sql3="SELECT qualification_code FROM qualification WHERE qualification_id='".$row['request_qualification']."'";
+	                	$result3=mysqli_query($conn,$sql3);
+	                	$row3=mysqli_fetch_array($result3);
 	                	echo "
 	                	<tr>
 	                		<td>".$row['request_id']."</td>
 	                		<td>".$row['station_origin']."</td>
 	                		<td>".$row['request_date']."</td>
-	                		<td>".$row['request_qualification']."</td>
+	                		<td>".$row3['qualification_code']."</td>
 	                		<td>".$row['pesawat_id']."</td>	                		
 	                		<td>".$row2['status_desc']."</td>
 	                		<td>
 	                			<form method='post' action='exportexcellreq.php'>
-	                				<input type='submit' name='action' class='btn btn-success' value='Print'/>
+	                				<input type='submit' name='action' class='btn btn-info' value='Detail'/>
 	                				<input type='hidden' name='reqid' value='".$row['request_id']."'/>
 	                			</form>	
 	                		</td>

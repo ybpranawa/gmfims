@@ -80,7 +80,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="addrequest.php"><i class="fa fa-circle-o"></i> Make Request</a></li>
-          <li><a href="editrequest.php"><i class="fa fa-circle-o"></i> Edit Request</a></li>
+          <li><a href="editrequest.php"><i class="fa fa-circle-o"></i> Edit Requests</a></li>
           <li><a href="historyrequester.php"><i class="fa fa-circle-o"></i> History</a></li>
         </ul>
       </li>
@@ -94,8 +94,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="viewrequest.php"><i class="fa fa-circle-o"></i> View Request</a></li>
-          <li><a href="editrequest.php"><i class="fa fa-circle-o"></i> Edit Request</a></li>
+          <li><a href="viewrequest.php"><i class="fa fa-circle-o"></i> View Requests</a></li>
+          <li><a href="editsignrequest.php"><i class="fa fa-circle-o"></i> Edit Signed Requests</a></li>
           <li><a href="searchunit.php"><i class="fa fa-circle-o"></i> Search Unit</a></li>
           <li><a href="historycp.php"><i class="fa fa-circle-o"></i> History</a></li>
         </ul>

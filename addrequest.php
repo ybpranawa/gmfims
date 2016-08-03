@@ -136,9 +136,13 @@ session_start();
 									<label for="qualification" class="col-md-4 control-label">Qualification :</label>
 									<div class="input-group">
 										<select class="form-control" name="qualification">
-										    <option value="AP">AP</option>
-										    <option value="EA">EA</option>
-										    <option value="T">Technician</option>
+											<?php
+											$sql="SELECT * FROM qualification";
+											$result=mysqli_query($conn,$sql);
+											while ($row=mysqli_fetch_array($result)) {
+												echo "<option value='".$row['qualification_id']."'>".$row['qualification_code']."</option> ";
+											}
+											?>
 										</select>
 									</div>
 								</div>
@@ -171,7 +175,7 @@ session_start();
 										<select class="form-control" name="rating">
 										    <?php
 										    while ($row=mysqli_fetch_array($result)) {
-										    	echo "<option value='".$row['rating_id']."'>".$row['rating_id']."</option>";
+										    	echo "<option value='".$row['rating_id']."'>".$row['rating_code']."</option>";
 										    }
 										    ?>
 										</select>

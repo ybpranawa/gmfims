@@ -1,15 +1,18 @@
 <?php
-require 'config/dbconnect.php';
 session_start();
-if ($_POST['action']=='Del') {
-	$sql="DELETE FROM request WHERE request_id='".$_POST['reqid']."'";
-	$result=mysqli_query($conn, $sql);
+require 'config/dbconnect.php';
+$reqid=$_POST['reqid'];
+$username=$_SESSION['username'];
+$sql="UPDATE request SET centralplanner_id='".$username."' WHERE request_id='".$reqid."'";
+$result=mysqli_query($conn,$sql);
+if ($_POST['action']=='Reject') {
+	$sql="UPDATE request SET status_request='0' WHERE request_id='".$reqid."'";
+	$result=mysqli_query($conn,$sql);
 	$status=1;
-	$pesan="Your request has been deleted";
-	header("Location: editrequest.php?status=$status&pesan=$pesan");
+	$pesan="Request has been rejected";
+	header("Location: viewrequest.php?status=$status&pesan=$pesan");
 }
-else
-{
+elseif ($_POST['action']=='Assign') {
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,12 +44,12 @@ else
 		<!-- Content Header (Page header) -->
 	    <section class="content-header">
 	      <h1>
-	        Edit Request
-	        <small>> Edit request form</small>
+	        Assign Request
+	        <small>> Assign request form</small>
 	      </h1>
 	      <ol class="breadcrumb">
 	        <li><a href="#"><i class="fa fa-plus"></i> Request</a></li>
-	        <li class="active">Edit Request</li>
+	        <li class="active">View Request</li>
 	      </ol>
 	    </section>
 	    <section class="content">
@@ -54,7 +57,6 @@ else
 	    	
 			  	<div class="col-md-12">
 			  		<?php
-
 					  if (isset($_GET['status'])) {
 					    if  ($_GET['status']==0) {
 					    ?>
@@ -76,60 +78,77 @@ else
 					  ?>
 			  	</div>
 	    		<div class="col-md-6">
-	    			<div class="box box-info">
+	    			<div class="box box-success">
 			            <div class="box-header with-border">
-			              <h3 class="box-title">Request Form</h3>
+			              <h3 class="box-title">Assign Request Form</h3>
 			            </div>
 			            <!-- /.box-header -->
 			            <!-- form start -->
 			            <?php
-			            $reqid=$_POST['reqid'];
-			            $sql="SELECT station_origin, request_date, request_qualification, pesawat_id, status_request, request_total,request_rating, requester_msg, reason, reimburstment
+			            $sql="SELECT station_origin, request_date, request_qualification, pesawat_id, status_request, request_total,request_rating, requester_msg, reason, reimburstment, requester_id,
+			            start_date, finish_date
 	    				FROM request WHERE request_id='".$reqid."'";
 	    				$result=mysqli_query($conn,$sql);
 	    				$row=mysqli_fetch_array($result);
 			            ?>
-			            <form class="form-horizontal" action="controller/editcurrequest.php" method="post">
+			            <form class="form-horizontal" action="controller/accrequest.php" method="post">
 							<div class="box-body">
 								<div class="form-group">
-									<label for="station" class="col-md-4 control-label">Request ID :</label>
+									<label for="requestid" class="col-md-4 control-label">Request ID :</label>
 									<div class="input-group">
-										<input type="text" value="<?php echo $reqid; ?>" id="requestid" name="requestid" class="form-control" placeholder=<?php echo $reqid;?> readonly="true">
+										<input type="text" value="<?php echo $reqid; ?>" id="requestid" name="requestid" class="form-control" readonly="true">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="requesterid" class="col-md-4 control-label">Requester ID :</label>
+									<div class="input-group">
+										<input type="text" value="<?php echo $row['requester_id'];?>" id="requesterid" name="requesterid" class="form-control" readonly="true">
 									</div>
 								</div>
 
 								<div class="form-group">
 									<label for="station" class="col-md-4 control-label">Station Origin :</label>
 									<div class="input-group">
-										<input type="text" value="<?php echo $row['station_origin']; ?>" id="requestid" name="requestid" class="form-control" readonly="true">
-										
+										<input type="text" value="<?php echo $row['station_origin'];?>" id="station" name="station" class="form-control" readonly="true">
 									</div>
 								</div>
 
 								<!-- Date range -->
 								<div class="form-group">
-									<label for="reqdate" class="col-md-4 control-label">Date range :</label>
-									<div class="input-group col-md-7">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
-										</div>
-									  	<input type="text" class="form-control" id="reqdate" name="reqdate">
+									<label for="startdate" class="col-md-4 control-label">Start :</label>
+									<div class="input-group">
+										<?php
+										$startdate=date("Y-m-d",strtotime($row['start_date']));
+										?>
+										<input type="text" value="<?php echo $startdate;?>" id="startdate" name="startdate" class="form-control" readonly="true">
 									</div>
-									<!-- /.input group -->
+								</div>
+								<!-- /.form group -->
+
+								<!-- Date range -->
+								<div class="form-group">
+									<label for="enddate" class="col-md-4 control-label">End :</label>
+									<div class="input-group">
+										<?php
+										$enddate=date("Y-m-d",strtotime($row['finish_date']));
+										?>
+										<input type="text" value="<?php echo $enddate;?>" id="enddate" name="enddate" class="form-control" readonly="true">
+									</div>
 								</div>
 								<!-- /.form group -->
 
 								<div class="form-group">
 									<label for="qty" class="col-md-4 control-label">Qty :</label>
 									<div class="input-group col-md-2">
-										<input class="form-control" type="number" id="qty" value="<?php echo $row['request_total'];?>" name="qty">
+										<input class="form-control" type="number" id="qty" value="<?php echo $row['request_total'];?>" name="qty" readonly="true">
 									</div>
 								</div>
 
 								<div class="form-group">
 									<label for="qualification" class="col-md-4 control-label">Qualification :</label>
 									<div class="input-group">
-										<select class="form-control" name="qualification">
+										<select class="form-control" name="qualification" readonly="true">
 											
 											<?php
 											$sql2="SELECT qualification_code FROM qualification WHERE qualification_id='".$row['request_qualification']."'";
@@ -137,17 +156,7 @@ else
 											$row2=mysqli_fetch_array($result2);
 											?>
 											<option value="<?php echo $row['request_qualification'];?>"><?php echo $row2['qualification_code'];?></option>
-											<?php
-											$sql2="SELECT qualification_id, qualification_code FROM qualification";
-											$result2=mysqli_query($conn,$sql2);
 											
-											while ($row2=mysqli_fetch_array($result2)) {
-												if ($row2['qualification_id']!=$row['request_qualification']) {
-													echo "<option value='".$row2['qualification_id']."'>".$row2['qualification_code']."</option>";
-												}
-											}
-											
-											?>
 										</select>
 									</div>
 								</div>
@@ -155,26 +164,14 @@ else
 								<div class="form-group field_wrap">
 									<label for="actype" class="col-md-4 control-label">Aircraft Type : </label>
 									<div class="input-group ">
-										<select class="form-control" name="actype">
-											<option value="<?php echo $row['pesawat_id'];?>"><?php echo $row['pesawat_id'];?></option>
-										    <?php
-										    $sql2="SELECT pesawat_id FROM pesawat";
-										    $result2=mysqli_query($conn,$sql2);
-										    while ($row2=mysqli_fetch_array($result2)) {
-										    	if ($row2['pesawat_id']!=$row['pesawat_id']) {
-										    		echo "<option value='".$row2['pesawat_id']."'>".$row2['pesawat_id']."</option>";	
-										    	}
-										    }
-										    ?>
-										</select>
-										<!-- <div class="input-group col-md-4" style="floating:left;"><a href="javascript:void(0);" class="add_button" title="Add field"><i class="fa fa-plus"></i></a></div> -->
+										<input type="text" value="<?php echo $row['pesawat_id'];?>" id="actype" name="actype" class="form-control" readonly="true">
 									</div>									
 								</div>
 
 								<div class="form-group">
-									<label for="rating" class="col-md-4 control-label">Rating up to :</label>
+									<label for="rating" class="col-md-4 control-label">Rating Up To :</label>
 									<div class="input-group">
-										<select class="form-control" name="rating">
+										<select class="form-control" name="rating" readonly="true">
 											<?php
 
 											$sql2="SELECT rating_code, rating_id FROM rating WHERE rating_id='".$row['request_rating']."'";
@@ -182,25 +179,14 @@ else
 											$row2=mysqli_fetch_array($result2);
 											?>
 											<option value="<?php echo $row2['rating_id'];?>"><?php echo $row2['rating_code'];?></option>
-										    <?php
-
-										    $sql2="SELECT rating_id, rating_code FROM rating";
-										    $result2=mysqli_query($conn,$sql2);
-										    while ($row2=mysqli_fetch_array($result2)) {
-										    	if ($row2['rating_id']!=$row['request_rating']) {
-										    		echo "<option value='".$row2['rating_id']."'>".$row2['rating_code']."</option>";	
-										    	}
-										    }
-										    ?>
 										</select>
-
 									</div>
 								</div>
 
 								<div class="form-group">
 									<label for="note" class="col-md-4 control-label">Additional note :</label>
 									<div class="input-group col-md-7">
-										<textarea name="note" id="note" class="form-control"><?php echo $row['requester_msg'];?></textarea>
+										<textarea name="note" id="note" class="form-control" readonly="true"><?php echo $row['requester_msg'];?></textarea>
 									</div>
 								</div>
 
@@ -212,28 +198,60 @@ else
 								<div class="form-group">
 									<label for="reason" class="col-md-4 control-label">Reason :</label>
 									<div class="input-group">
-										<input class="form-control" name="reason" id="reason" value="<?php echo $row['reason'];?>" placeholder="<?php echo $row['reason'];?>">
+										<input class="form-control" name="reason" id="reason" value="<?php echo $row['reason'];?>" readonly="true">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="reimburstment" class="col-md-4 control-label">Status Reimburstment :</label>
 									<div class="input-group">
-										<select class="form-control" name="reimburstment">
+										<input type="text" value="<?php echo $row['reimburstment'];?>" id="reimburstment" name="reimburstment" class="form-control" readonly="true">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="unit" class="col-md-4 control-label">Assign to Unit :</label>
+									<div class="input-group">
+										<select class="form-control" name="unit">
 											<?php
-											if ($row['reimburstment']==1) {
-												echo "<option value='1'>PBTH</option>
-										    		<option value='2'>TMB</option>";	
-											}
-											else
-											{
-												echo "<option value='2'>TMB</option>
-										    		<option value='1'>PBTH</option>";		
+											$sql2="SELECT unit_id, manager_id FROM unit";
+											$result2=mysqli_query($conn,$sql2);
+											while ($row2=mysqli_fetch_array($result2)) {
+												echo "<option value='".$row2['unit_id']."'>".$row2['unit_id']."</option>";
 											}
 											?>
 										</select>
 									</div>
 								</div>
-								<button type="submit" class="btn btn-info pull-right">Send Request</button>
+								<div class="form-group">
+									<label for="manager" class="col-md-4 control-label">Manager/PIC :</label>
+									<div class="input-group">
+										<select class="form-control" name="manager">
+											<?php
+											$sql2="SELECT `p.personil_name`, `pd.personil_contact` FROM personil p, personil_detail pd WHERE `p.personil_id`='".$row2['manager_id']."' AND pd.personil_id='".$row2['manager_id']."'";
+											$result2=mysqli_query($conn,$sql2);
+											while ($row2=mysqli_fetch_array($result2)) {
+												echo "<option value='".$row2['personil_name']."'>".$row2['personil_name']."</option>";
+											}
+											?>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="contact" class="col-md-4 control-label">Contact :</label>
+									<div class="input-group">
+										<input type="text" value="<?php echo $row2['personil_contact'];?>" id="contact" name="contact" class="form-control" placeholder="Contact">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="message" class="col-md-4 control-label">Note :</label>
+									<div class="input-group">
+										<textarea name="message" id="message" class="form-control"></textarea>
+									</div>
+								</div>
+
+								<button type="submit" class="btn btn-success pull-right">Assign Unit</button>
 							</div>
 							<!-- /.box-footer -->
 			            </form>
