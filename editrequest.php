@@ -55,7 +55,7 @@ session_start();
 
 	    <?php
 	    $sql="SELECT request_id, station_origin, request_date, request_qualification, pesawat_id, status_request
-	    FROM request WHERE requester_id='".$_SESSION['username']."'";
+	    FROM request WHERE requester_id='".$_SESSION['username']."' AND status_request='1'";
 	    $result=mysqli_query($conn,$sql);
 	    ?>
 

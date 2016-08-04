@@ -26,8 +26,11 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
-      <li><a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+      <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
       
+      <?php
+      if ($_SESSION['role']=='1') {
+      ?>
       <li class="treeview">
         <a href="#">
           <i class="fa fa-pencil"></i>
@@ -69,6 +72,10 @@
           <li><a href="editrating.php"><i class="fa fa-circle-o"></i> Edit Rating</a></li>
         </ul>
       </li>
+      <?php
+      }
+      if ($_SESSION['role']=='2') {
+      ?>
 
       <li class="treeview">
         <a href="#">
@@ -84,6 +91,10 @@
           <li><a href="historyrequester.php"><i class="fa fa-circle-o"></i> History</a></li>
         </ul>
       </li>
+      <?php
+      }
+      if ($_SESSION['role']=='3') {
+      ?>
 
       <li class="treeview">
         <a href="#">
@@ -100,6 +111,10 @@
           <li><a href="historycp.php"><i class="fa fa-circle-o"></i> History</a></li>
         </ul>
       </li>
+      <?php
+      }
+      if ($_SESSION['role']=='4') {
+      ?>
 
       <li class="treeview">
         <a href="#">
@@ -111,10 +126,13 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="viewassrequest.php"><i class="fa fa-circle-o"></i> View Assigned Request</a></li>
-          <li><a href="assignmanpower.php"><i class="fa fa-circle-o"></i> Assign Manpower</a></li>
+          <li><a href="editassmanpower.php"><i class="fa fa-circle-o"></i> Edit Manpower Assignment</a></li>
           <li><a href="historyprovider.php"><i class="fa fa-circle-o"></i> History</a></li>
         </ul>
       </li>
+      <?php
+      }
+      ?>
 
       <li>
         <a href="pages/calendar.html">

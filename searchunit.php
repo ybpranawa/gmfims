@@ -8,6 +8,42 @@ session_start();
 	require 'config/dbconnect.php';
 	require 'template/header.php';
 	?>
+	<script type="text/javascript">
+		function showUser(str) {
+		    if (str == "") {
+		        document.getElementById("txtHint").innerHTML = "";
+		        return;
+		    } else { 
+		        if (window.XMLHttpRequest) {
+		            // code for IE7+, Firefox, Chrome, Opera, Safari
+		            xmlhttp = new XMLHttpRequest();
+		        } else {
+		            // code for IE6, IE5
+		            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		        }
+		        xmlhttp.onreadystatechange = function() {
+		            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+		                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+		            }
+		        };
+		        xmlhttp.open("GET","controller/getunit.php?q="+str,true);
+		        xmlhttp.send();
+		    }
+		}
+	</script>
+	<script>
+	  $(function () {
+	    $("#example1").DataTable();
+	    $('#example2').DataTable({
+	      "paging": true,
+	      "lengthChange": false,
+	      "searching": false,
+	      "ordering": true,
+	      "info": true,
+	      "autoWidth": false
+	    });
+	  });
+	</script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -63,7 +99,7 @@ session_start();
 					  }
 					  ?>
 			  	</div>
-			  	<div class="col-md-6">
+			  	<div class="col-md-4">
 			  		<div class="box box-success">
 			  			<div class="box-header with-border">
 							<h3 class="box-title">Search Unit</h3>
@@ -73,13 +109,14 @@ session_start();
 			            		<div class="form-group">
 			            			<label for="unitid" class="col-md-4 control-label">Unit ID :</label>
 			            			<div class="input-group">
-			            				<select class="form-control select2">
-			            					<option>Alaska</option>
-                  <option>California</option>
-                  <option>Delaware</option>
-                  <option>Tennessee</option>
-                  <option>Texas</option>
-                  <option>Washington</option>
+			            			<select class="form-control select2"  style="width: 100%;" onchange="showUser(this.value)" name="users">
+			            				<?php
+			            				$sql="SELECT unit_id, unit_code FROM unit";
+			            				$result=mysqli_query($conn,$sql);
+			            				while ($row=mysqli_fetch_array($result)) {
+			            						echo "<option value='".$row['unit_id']."'>".$row['unit_code']."</option>";
+			            				}
+			            				?>
 			            				</select>
 			            			</div>
 			            		</div>
@@ -87,6 +124,11 @@ session_start();
 			            </form>
 			  		</div>
 			  	</div>
+
+			  	<div class="col-xs-12" id="txtHint">
+		          
+		        </div>
+		        <!-- /.col -->
 	    	</div>
 	    </section>
 	</div>

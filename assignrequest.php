@@ -20,6 +20,29 @@ elseif ($_POST['action']=='Assign') {
 	<?php
 	require 'template/header.php';
 	?>
+	<script type="text/javascript">
+		function showUser(str) {
+		    if (str == "") {
+		        document.getElementById("txtHint").innerHTML = "";
+		        return;
+		    } else { 
+		        if (window.XMLHttpRequest) {
+		            // code for IE7+, Firefox, Chrome, Opera, Safari
+		            xmlhttp = new XMLHttpRequest();
+		        } else {
+		            // code for IE6, IE5
+		            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		        }
+		        xmlhttp.onreadystatechange = function() {
+		            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+		                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+		            }
+		        };
+		        xmlhttp.open("GET","controller/getmanager.php?q="+str,true);
+		        xmlhttp.send();
+		    }
+		}
+	</script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -211,9 +234,9 @@ elseif ($_POST['action']=='Assign') {
 								<div class="form-group">
 									<label for="unit" class="col-md-4 control-label">Assign to Unit :</label>
 									<div class="input-group">
-										<select class="form-control" name="unit">
+										<select class="form-control" name="unit" onchange="showUser(this.value)">
 											<?php
-											$sql2="SELECT unit_id, manager_id FROM unit";
+											$sql2="SELECT unit_id FROM unit";
 											$result2=mysqli_query($conn,$sql2);
 											while ($row2=mysqli_fetch_array($result2)) {
 												echo "<option value='".$row2['unit_id']."'>".$row2['unit_id']."</option>";
@@ -222,26 +245,9 @@ elseif ($_POST['action']=='Assign') {
 										</select>
 									</div>
 								</div>
-								<div class="form-group">
-									<label for="manager" class="col-md-4 control-label">Manager/PIC :</label>
-									<div class="input-group">
-										<select class="form-control" name="manager">
-											<?php
-											$sql2="SELECT `p.personil_name`, `pd.personil_contact` FROM personil p, personil_detail pd WHERE `p.personil_id`='".$row2['manager_id']."' AND pd.personil_id='".$row2['manager_id']."'";
-											$result2=mysqli_query($conn,$sql2);
-											while ($row2=mysqli_fetch_array($result2)) {
-												echo "<option value='".$row2['personil_name']."'>".$row2['personil_name']."</option>";
-											}
-											?>
-										</select>
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="contact" class="col-md-4 control-label">Contact :</label>
-									<div class="input-group">
-										<input type="text" value="<?php echo $row2['personil_contact'];?>" id="contact" name="contact" class="form-control" placeholder="Contact">
-									</div>
+								
+								<div class="form-group" id="txtHint">
+									
 								</div>
 
 								<div class="form-group">

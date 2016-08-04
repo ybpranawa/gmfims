@@ -9,18 +9,18 @@ session_start();
 	require 'template/header.php';
 	?>
 	<script>
-	  $(function () {
-	    $("#example1").DataTable();
-	    $('#example2').DataTable({
-	      "paging": true,
-	      "lengthChange": false,
-	      "searching": false,
-	      "ordering": true,
-	      "info": true,
-	      "autoWidth": false
-	    });
-	  });
-	</script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+</script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -44,18 +44,18 @@ session_start();
 	<div class="content-wrapper" style="padding-top: 50px;">
 		<section class="content-header">
 	      <h1>
-	        View Request
-	        <small>> View submitted request</small>
+	        View Assigned Request
+	        <small>> View assigned request</small>
 	      </h1>
 	      <ol class="breadcrumb">
-	        <li><a href="#"><i class="fa fa-plus"></i> Assign</a></li>
-	        <li class="active">View Request</li>
+	        <li><a href="#"><i class="fa fa-plus"></i> Provide</a></li>
+	        <li class="active">View Assigned Request</li>
 	      </ol>
 	    </section>
 
 	    <?php
 	    $sql="SELECT request_id, station_origin, request_date, request_qualification, pesawat_id, status_request
-	    FROM request WHERE status_request='1'";
+	    FROM request WHERE status_request='2'";
 	    $result=mysqli_query($conn,$sql);
 	    ?>
 
@@ -121,7 +121,7 @@ session_start();
 	                		<td>".$row['pesawat_id']."</td>	                		
 	                		<td>".$row2['status_desc']."</td>
 	                		<td>
-	                			<form method='post' action='assignrequest.php'>
+	                			<form method='post' action='assignmanpower.php'>
 	                				<input type='submit' name='action' class='btn btn-success' value='Assign'/>
 	                				<input type='submit' name='action' class='btn btn-danger' value='Reject'/>
 	                				<input type='hidden' name='reqid' value='".$row['request_id']."'/>

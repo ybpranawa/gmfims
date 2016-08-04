@@ -12,6 +12,7 @@ if ($statuskoneksi=1)
 	{
 		$statuslogin=1;
 		$_SESSION['username']=$username;
+		$_SESSION['role']=$row['role_id'];
 		$ipaddr=$_SERVER['REMOTE_ADDR'];
 		$useragent=$_SERVER['HTTP_USER_AGENT'];
 		$query="UPDATE user_account SET last_login='".date('Y-m-d H:i:sa')."', user_ip='".$ipaddr."', user_agent='".$useragent."' WHERE user_id='".$username."'";
