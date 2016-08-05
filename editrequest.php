@@ -54,7 +54,7 @@ session_start();
 	    </section>
 
 	    <?php
-	    $sql="SELECT request_id, station_origin, request_date, request_qualification, pesawat_id, status_request
+	    $sql="SELECT request_id, requester_id, station_origin, request_date, request_total, status_request
 	    FROM request WHERE requester_id='".$_SESSION['username']."' AND status_request='1'";
 	    $result=mysqli_query($conn,$sql);
 	    ?>
@@ -95,10 +95,10 @@ session_start();
 	                <thead>
 	                <tr>
 	                  <th>Request ID</th>
+	                  <th>Requester ID</th>
 	                  <th>Station Origin</th>
 	                  <th>Request Date</th>
-	                  <th>Qualification</th>
-	                  <th>Aircraft Type</th>
+	                  <th>Total Request</th>
 	                  <th>Status</th>
 	                  <th>Action</th>
 	                </tr>
@@ -109,16 +109,13 @@ session_start();
 	                	$sql2="SELECT status_desc FROM status_request WHERE status_id='".$row['status_request']."'";
 	                	$result2=mysqli_query($conn,$sql2);
 	                	$row2=mysqli_fetch_array($result2);
-	                	$sql3="SELECT qualification_code FROM qualification WHERE qualification_id='".$row['request_qualification']."'";
-	                	$result3=mysqli_query($conn,$sql3);
-	                	$row3=mysqli_fetch_array($result3);
 	                	echo "
 	                	<tr>
 	                		<td>".$row['request_id']."</td>
+	                		<td>".$row['requester_id']."</td>
 	                		<td>".$row['station_origin']."</td>
 	                		<td>".$row['request_date']."</td>
-	                		<td>".$row3['qualification_code']."</td>
-	                		<td>".$row['pesawat_id']."</td>	                		
+	                		<td>".$row['request_total']."</td>
 	                		<td>".$row2['status_desc']."</td>
 	                		<td>
 	                			<form method='post' action='formedit.php'>
@@ -135,11 +132,11 @@ session_start();
 					</tbody>
 	                <tfoot>
 	                <tr>
-	                  <th>Request Code</th>
+	                  <th>Request ID</th>
+	                  <th>Requester ID</th>
 	                  <th>Station Origin</th>
 	                  <th>Request Date</th>
-	                  <th>Qualification</th>
-	                  <th>Aircraft Type</th>
+	                  <th>Total Request</th>
 	                  <th>Status</th>
 	                  <th>Action</th>
 	                </tr>

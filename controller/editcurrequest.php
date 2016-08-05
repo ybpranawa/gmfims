@@ -19,11 +19,13 @@ $statusrequest="1";
 $reason=$_POST['reason'];
 $reimburstment=$_POST['reimburstment'];
 
-$sql="UPDATE request SET station_origin='".$station."', requester_id='".$requester."', request_date='".$reqdate."', start_date='".date("Y-m-d", strtotime($fromdate))."',
-finish_date='".date("Y-m-d",strtotime($todate))."', request_total='".$qty."', request_qualification='".$qualification."', pesawat_id='".$actype."',
-request_rating='".$rating."', requester_msg='".$note."', status_request='".$statusrequest."', reason='".$reason."', reimburstment='".$reimburstment."'
-WHERE request_id='".$request_id."'";
-$result=mysqli_query($conn,$sql);
+$reqid=$_POST['reqid'];
+
+for ($i=0; $i < $qty; $i++) { 
+	$sql="UPDATE request_qualification SET rq_note='".$note[$i]."', qualification_id='".$qualification[$i]."', pesawat_id='".$actype[$i]."', rating_id='".$rating[$i]."' WHERE rq_id='".$reqid[$i]."'";
+	$result=mysqli_query($conn,$sql);
+	//echo $rating[$i];
+}
 
 $status=1;
 $pesan="Your request has been submitted";

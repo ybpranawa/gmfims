@@ -28,6 +28,29 @@ session_start();
 	    });
 	});
 	</script>
+	<script type="text/javascript">
+		function showUser(str) {
+		    if (str == "") {
+		        document.getElementById("txtHint").innerHTML = "";
+		        return;
+		    } else { 
+		        if (window.XMLHttpRequest) {
+		            // code for IE7+, Firefox, Chrome, Opera, Safari
+		            xmlhttp = new XMLHttpRequest();
+		        } else {
+		            // code for IE6, IE5
+		            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		        }
+		        xmlhttp.onreadystatechange = function() {
+		            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+		                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+		            }
+		        };
+		        xmlhttp.open("GET","controller/specification.php?q="+str,true);
+		        xmlhttp.send();
+		    }
+		}
+	</script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -86,139 +109,73 @@ session_start();
 					  }
 					  ?>
 			  	</div>
-	    		<div class="col-md-6">
-	    			<div class="box box-info">
-			            <div class="box-header with-border">
-			              <h3 class="box-title">Request Form</h3>
-			            </div>
-			            <!-- /.box-header -->
-			            <!-- form start -->
-			            <?php
-			            $sql="SELECT * FROM station";
-			            $result=mysqli_query($conn,$sql);			            
-			            ?>
-			            <form class="form-horizontal" action="controller/newrequest.php" method="post">
+			  	<form class="form-horizontal" action="controller/newrequest.php" method="post">
+		    		<div class="col-md-12">
+		    			<div class="box box-info">
+				            <div class="box-header with-border">
+				              <h3 class="box-title">Request Form</h3>
+				            </div>
+				            <!-- /.box-header -->
+				            <!-- form start -->
+				            <?php
+				            $sql="SELECT * FROM station";
+				            $result=mysqli_query($conn,$sql);			            
+				            ?>
+				            
 							<div class="box-body">
-								<div class="form-group">
-									<label for="station" class="col-md-4 control-label">Station Origin :</label>
-									<div class="input-group">
-										<select class="form-control" name="station">
-											<?php
-											while ($row=mysqli_fetch_array($result)) {
-												echo "<option value='".$row['station_id']."'>".$row['station_id']."</option>";
-											}
-											?>
-										</select>
-									</div>
-								</div>
-
-								<!-- Date range -->
-								<div class="form-group">
-									<label for="reqdate" class="col-md-4 control-label">Date range :</label>
-									<div class="input-group col-md-7">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="station" class="col-md-6 control-label">Station Origin :</label>
+										<div class="input-group">
+											<select class="form-control" name="station">
+												<?php
+												while ($row=mysqli_fetch_array($result)) {
+													echo "<option value='".$row['station_id']."'>".$row['station_id']."</option>";
+												}
+												?>
+											</select>
 										</div>
-									  	<input type="text" class="form-control" id="reqdate" name="reqdate">
-									</div>
-									<!-- /.input group -->
-								</div>
-								<!-- /.form group -->
-
-								<div class="form-group">
-									<label for="qty" class="col-md-4 control-label">Qty :</label>
-									<div class="input-group col-md-2">
-										<input class="form-control" type="number" id="qty" name="qty">
 									</div>
 								</div>
 
-								<div class="form-group">
-									<label for="qualification" class="col-md-4 control-label">Qualification :</label>
-									<div class="input-group">
-										<select class="form-control" name="qualification">
-											<?php
-											$sql="SELECT * FROM qualification";
-											$result=mysqli_query($conn,$sql);
-											while ($row=mysqli_fetch_array($result)) {
-												echo "<option value='".$row['qualification_id']."'>".$row['qualification_code']."</option> ";
-											}
-											?>
-										</select>
+								<div class="col-md-4">
+									<!-- Date range -->
+									<div class="form-group">
+										<label for="reqdate" class="col-md-4 control-label">Date range :</label>
+										<div class="input-group col-md-8">
+											<div class="input-group-addon">
+												<i class="fa fa-calendar"></i>
+											</div>
+										  	<input type="text" class="form-control" id="reqdate" name="reqdate">
+										</div>
+										<!-- /.input group -->
+									</div>
+									<!-- /.form group -->
+								</div>
+
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="qty" class="col-md-6 control-label">Qty :</label>
+										<div class="input-group col-md-4">
+											<input class="form-control" type="number" id="qty" name="qty" onchange="showUser(this.value)">
+										</div>
 									</div>
 								</div>
-
-								<?php
-								$sql="SELECT * FROM pesawat";
-								$result=mysqli_query($conn,$sql);
-								?>
-								<div class="form-group field_wrap">
-									<label for="actype" class="col-md-4 control-label">Aircraft Type : </label>
-									<div class="input-group ">
-										<select class="form-control" name="actype">
-										    <?php
-										    while ($row=mysqli_fetch_array($result)) {
-										    	echo "<option value='".$row['pesawat_id']."'>".$row['pesawat_id']."</option>";
-										    }
-										    ?>
-										</select>
-										<!-- <div class="input-group col-md-4" style="floating:left;"><a href="javascript:void(0);" class="add_button" title="Add field"><i class="fa fa-plus"></i></a></div> -->
-									</div>									
-								</div>
-
-								<?php
-								$sql="SELECT * FROM rating";
-								$result=mysqli_query($conn,$sql);
-								?>
-								<div class="form-group">
-									<label for="rating" class="col-md-4 control-label">Rating up to :</label>
-									<div class="input-group">
-										<select class="form-control" name="rating">
-										    <?php
-										    while ($row=mysqli_fetch_array($result)) {
-										    	echo "<option value='".$row['rating_id']."'>".$row['rating_code']."</option>";
-										    }
-										    ?>
-										</select>
-
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="note" class="col-md-4 control-label">Additional note :</label>
-									<div class="input-group col-md-7">
-										<textarea name="note" id="note" class="form-control"></textarea>
-									</div>
-								</div>
-
-								
 
 							</div>
-							<!-- /.box-body -->
-							<div class="box-footer">
-								<div class="form-group">
-									<label for="reason" class="col-md-4 control-label">Reason :</label>
-									<div class="input-group">
-										<input class="form-control" name="reason" id="reason">
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="reimburstment" class="col-md-4 control-label">Status Reimburstment :</label>
-									<div class="input-group">
-										<select class="form-control" name="reimburstment">
-										    <option value="1">PBTH</option>
-										    <option value="2">TMB</option>
-										</select>
-									</div>
-								</div>
-								<button type="submit" class="btn btn-info pull-right">Send Request</button>
-							</div>
-							<!-- /.box-footer -->
-			            </form>
-			          </div>
-	    		</div>
+				          </div>
+		    		</div>
+		    		<div id="txtHint">
+		    			
+		    		</div>
+		    		
+	    		</form>
 	    	</div>
 	    </section>
 	</div>
+	<?php
+	require 'template/copyright.php';
+	?>
 </div>
 
 <?php

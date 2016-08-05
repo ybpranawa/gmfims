@@ -4,6 +4,8 @@ session_start();
 if ($_POST['action']=='Del') {
 	$sql="DELETE FROM request WHERE request_id='".$_POST['reqid']."'";
 	$result=mysqli_query($conn, $sql);
+	$sql="DELETE FROM request_qualification WHERE request_id='".$_POST['reqid']."'";
+	$result=mysqli_query($conn, $sql);
 	$status=1;
 	$pesan="Your request has been deleted";
 	header("Location: editrequest.php?status=$status&pesan=$pesan");
@@ -75,170 +77,207 @@ else
 					  }
 					  ?>
 			  	</div>
-	    		<div class="col-md-6">
-	    			<div class="box box-info">
-			            <div class="box-header with-border">
-			              <h3 class="box-title">Request Form</h3>
-			            </div>
-			            <!-- /.box-header -->
-			            <!-- form start -->
-			            <?php
-			            $reqid=$_POST['reqid'];
-			            $sql="SELECT station_origin, request_date, request_qualification, pesawat_id, status_request, request_total,request_rating, requester_msg, reason, reimburstment
-	    				FROM request WHERE request_id='".$reqid."'";
-	    				$result=mysqli_query($conn,$sql);
-	    				$row=mysqli_fetch_array($result);
-			            ?>
-			            <form class="form-horizontal" action="controller/editcurrequest.php" method="post">
-							<div class="box-body">
-								<div class="form-group">
-									<label for="station" class="col-md-4 control-label">Request ID :</label>
-									<div class="input-group">
-										<input type="text" value="<?php echo $reqid; ?>" id="requestid" name="requestid" class="form-control" placeholder=<?php echo $reqid;?> readonly="true">
+			  	<form class="form-horizontal" action="controller/editcurrequest.php" method="post">
+		    		<div class="col-md-12">
+		    			<div class="box box-info">
+				            <div class="box-header with-border">
+				              <h3 class="box-title">Request Form</h3>
+				            </div>
+				            <!-- /.box-header -->
+				            <!-- form start -->
+				            <?php
+				            $reqid=$_POST['reqid'];
+				            $sql="SELECT r.`station_origin`, r.`request_date`,  r.`status_request`, 
+				            r.`request_total`, r.`reason`, r.`reimburstment`, r.`start_date`, r.`finish_date`, rq.`rq_note`, rq.`qualification_id`, rq.`pesawat_id`, rq.`rating_id`
+		    				FROM request r INNER JOIN request_qualification rq ON r.`request_id`='".$reqid."' AND r.`request_id`=rq.`request_id`";
+		    				$result=mysqli_query($conn,$sql);
+		    				$row=mysqli_fetch_array($result);
+				            ?>
+				            
+								<div class="box-body">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label for="station" class="col-md-4 control-label">Request ID :</label>
+											<div class="input-group">
+												<input type="text" value="<?php echo $reqid; ?>" id="requestid" name="requestid" class="form-control" placeholder=<?php echo $reqid;?> readonly="true">
+											</div>
+										</div>
 									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="station" class="col-md-4 control-label">Station Origin :</label>
-									<div class="input-group">
-										<input type="text" value="<?php echo $row['station_origin']; ?>" id="requestid" name="requestid" class="form-control" readonly="true">
+									<div class="col-md-4">
 										
 									</div>
-								</div>
 
-								<!-- Date range -->
-								<div class="form-group">
-									<label for="reqdate" class="col-md-4 control-label">Date range :</label>
-									<div class="input-group col-md-7">
-										<div class="input-group-addon">
-											<i class="fa fa-calendar"></i>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label for="station" class="col-md-4 control-label">Origin :</label>
+											<div class="input-group">
+												<input type="text" value="<?php echo $row['station_origin']; ?>" id="requestid" name="requestid" class="form-control" readonly="true">
+												
+											</div>
 										</div>
-									  	<input type="text" class="form-control" id="reqdate" name="reqdate">
 									</div>
-									<!-- /.input group -->
-								</div>
-								<!-- /.form group -->
 
-								<div class="form-group">
-									<label for="qty" class="col-md-4 control-label">Qty :</label>
-									<div class="input-group col-md-2">
-										<input class="form-control" type="number" id="qty" value="<?php echo $row['request_total'];?>" name="qty">
+									<div class="col-md-4">
+										<!-- Date range -->
+										<div class="form-group">
+											<label for="reqdate" class="col-md-4 control-label">From :</label>
+											<div class="input-group">
+											  	<input type="text" class="form-control" id="reqdate" name="reqdate" value='<?php echo date('Y-m-d',strtotime($row['start_date']));?>' readonly="true">
+											</div>
+										</div>
+										<!-- /.form group -->
 									</div>
-								</div>
 
-								<div class="form-group">
-									<label for="qualification" class="col-md-4 control-label">Qualification :</label>
-									<div class="input-group">
-										<select class="form-control" name="qualification">
-											
-											<?php
-											$sql2="SELECT qualification_code FROM qualification WHERE qualification_id='".$row['request_qualification']."'";
-											$result2=mysqli_query($conn,$sql2);
-											$row2=mysqli_fetch_array($result2);
-											?>
-											<option value="<?php echo $row['request_qualification'];?>"><?php echo $row2['qualification_code'];?></option>
-											<?php
-											$sql2="SELECT qualification_id, qualification_code FROM qualification";
-											$result2=mysqli_query($conn,$sql2);
-											
-											while ($row2=mysqli_fetch_array($result2)) {
-												if ($row2['qualification_id']!=$row['request_qualification']) {
-													echo "<option value='".$row2['qualification_id']."'>".$row2['qualification_code']."</option>";
+									<div class="col-md-4">
+										<!-- Date range -->
+										<div class="form-group">
+											<label for="reqdate" class="col-md-4 control-label">To :</label>
+											<div class="input-group">
+											  	<input type="text" class="form-control" id="reqdate" name="reqdate" value='<?php echo date('Y-m-d',strtotime($row['finish_date']));?>' readonly="true">
+											</div>
+										</div>
+										<!-- /.form group -->
+									</div>
+
+									<div class="col-md-4">
+										<div class="form-group">
+											<label for="qty" class="col-md-4 control-label">Qty :</label>
+											<div class="input-group col-md-2">
+												<input class="form-control" type="number" id="qty" value="<?php echo $row['request_total'];?>" name="qty" readonly="true">
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<?php
+						$sql="SELECT * FROM request_qualification rq JOIN qualification q ON rq.`qualification_id`=q.`qualification_id` JOIN rating r ON rq.`rating_id`=r.`rating_id` WHERE request_id='".$reqid."'";
+						$result=mysqli_query($conn,$sql);
+						
+												
+						while ($row=mysqli_fetch_array($result)){ 
+						?>
+						<div class="col-md-6">
+							<div class="box box-warning">
+								<div class="box-body">
+									<div class="hidden">
+										<input type="text" value="<?php echo $row['rq_id'];?>" readonly="true" name="reqid[]" id="reqid[]">
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="qualification" class="col-md-6 control-label">Qualification :</label>
+											<div class="input-group">
+												<select class="form-control" name="qualification[]">
+													<option value="<?php echo $row['qualification_id'];?>"><?php echo $row['qualification_code'];?></option>
+													<?php
+													$sql2="SELECT qualification_id, qualification_code FROM qualification";
+													$result2=mysqli_query($conn,$sql2);
+													
+													while ($row2=mysqli_fetch_array($result2)) {
+														if ($row2['qualification_id']!=$row['qualification_id']) {
+															echo "<option value='".$row2['qualification_id']."'>".$row2['qualification_code']."</option>";
+														}
+													}
+													?>
+												</select>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group field_wrap">
+											<label for="actype" class="col-md-6 control-label">Aircraft Type : </label>
+											<div class="input-group ">
+												<select class="form-control" name="actype[]">
+													<option value="<?php echo $row['pesawat_id'];?>"><?php echo $row['pesawat_id'];?></option>
+												    <?php
+												   	$sql2="SELECT pesawat_id FROM pesawat";
+												    $result2=mysqli_query($conn,$sql2);
+												    while ($row2=mysqli_fetch_array($result2)) {
+												    	if ($row2['pesawat_id']!=$row['pesawat_id']) {
+												    		echo "<option value='".$row2['pesawat_id']."'>".$row2['pesawat_id']."</option>";	
+												    	}
+												    }
+												    ?>
+												</select>
+												<!-- <div class="input-group col-md-4" style="floating:left;"><a href="javascript:void(0);" class="add_button" title="Add field"><i class="fa fa-plus"></i></a></div> -->
+											</div>									
+										</div>
+									</div>
+
+									<div class="col-md-9">
+										<div class="form-group">
+											<label for="rating" class="col-md-4 control-label">Rating up to :</label>
+											<div class="input-group">
+												<select class="form-control" name="rating[]">
+													<?php
+													?>
+													<option value="<?php echo $row['rating_id'];?>"><?php echo $row['rating_code'];?></option>
+												    <?php
+
+												   	$sql2="SELECT rating_id, rating_code FROM rating";
+												    $result2=mysqli_query($conn,$sql2);
+												    while ($row2=mysqli_fetch_array($result2)) {
+												    	if ($row2['rating_id']!=$row['rating_id']) {
+												    		echo "<option value='".$row2['rating_id']."'>".$row2['rating_code']."</option>";	
+												    	}
+												    }
+												    ?>
+												</select>
+
+											</div>
+										</div>
+									
+
+										<div class="form-group">
+											<label for="note" class="col-md-4 control-label">Note :</label>
+											<div class="input-group col-md-7">
+												<textarea name="note[]" id="note" class="form-control"><?php echo $row['rq_note'];?></textarea>
+											</div>
+										</div>
+									</div>
+									
+
+								</div>				            
+				          </div>
+		    		</div>
+		    		<?php
+		    		}
+		    		?>
+
+		    		<div class="col-md-6">
+		    			<div class="box box-success">
+		    				<div class="box-body">
+									<div class="form-group">
+										<label for="reason" class="col-md-4 control-label">Reason :</label>
+										<div class="input-group">
+											<input class="form-control" name="reason" id="reason" value="<?php echo $row['reason'];?>" placeholder="<?php echo $row['reason'];?>">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="reimburstment" class="col-md-4 control-label">Status Reimburstment :</label>
+										<div class="input-group">
+											<select class="form-control" name="reimburstment">
+												<?php
+												if ($row['reimburstment']==1) {
+													echo "<option value='1'>PBTH</option>
+											    		<option value='2'>TMB</option>";	
 												}
-											}
-											
-											?>
-										</select>
+												else
+												{
+													echo "<option value='2'>TMB</option>
+											    		<option value='1'>PBTH</option>";		
+												}
+												?>
+											</select>
+										</div>
 									</div>
-								</div>
-
-								<div class="form-group field_wrap">
-									<label for="actype" class="col-md-4 control-label">Aircraft Type : </label>
-									<div class="input-group ">
-										<select class="form-control" name="actype">
-											<option value="<?php echo $row['pesawat_id'];?>"><?php echo $row['pesawat_id'];?></option>
-										    <?php
-										    $sql2="SELECT pesawat_id FROM pesawat";
-										    $result2=mysqli_query($conn,$sql2);
-										    while ($row2=mysqli_fetch_array($result2)) {
-										    	if ($row2['pesawat_id']!=$row['pesawat_id']) {
-										    		echo "<option value='".$row2['pesawat_id']."'>".$row2['pesawat_id']."</option>";	
-										    	}
-										    }
-										    ?>
-										</select>
-										<!-- <div class="input-group col-md-4" style="floating:left;"><a href="javascript:void(0);" class="add_button" title="Add field"><i class="fa fa-plus"></i></a></div> -->
-									</div>									
-								</div>
-
-								<div class="form-group">
-									<label for="rating" class="col-md-4 control-label">Rating up to :</label>
-									<div class="input-group">
-										<select class="form-control" name="rating">
-											<?php
-
-											$sql2="SELECT rating_code, rating_id FROM rating WHERE rating_id='".$row['request_rating']."'";
-											$result2=mysqli_query($conn,$sql2);
-											$row2=mysqli_fetch_array($result2);
-											?>
-											<option value="<?php echo $row2['rating_id'];?>"><?php echo $row2['rating_code'];?></option>
-										    <?php
-
-										    $sql2="SELECT rating_id, rating_code FROM rating";
-										    $result2=mysqli_query($conn,$sql2);
-										    while ($row2=mysqli_fetch_array($result2)) {
-										    	if ($row2['rating_id']!=$row['request_rating']) {
-										    		echo "<option value='".$row2['rating_id']."'>".$row2['rating_code']."</option>";	
-										    	}
-										    }
-										    ?>
-										</select>
-
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="note" class="col-md-4 control-label">Additional note :</label>
-									<div class="input-group col-md-7">
-										<textarea name="note" id="note" class="form-control"><?php echo $row['requester_msg'];?></textarea>
-									</div>
-								</div>
-
-								
-
-							</div>
-							<!-- /.box-body -->
-							<div class="box-footer">
-								<div class="form-group">
-									<label for="reason" class="col-md-4 control-label">Reason :</label>
-									<div class="input-group">
-										<input class="form-control" name="reason" id="reason" value="<?php echo $row['reason'];?>" placeholder="<?php echo $row['reason'];?>">
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="reimburstment" class="col-md-4 control-label">Status Reimburstment :</label>
-									<div class="input-group">
-										<select class="form-control" name="reimburstment">
-											<?php
-											if ($row['reimburstment']==1) {
-												echo "<option value='1'>PBTH</option>
-										    		<option value='2'>TMB</option>";	
-											}
-											else
-											{
-												echo "<option value='2'>TMB</option>
-										    		<option value='1'>PBTH</option>";		
-											}
-											?>
-										</select>
-									</div>
-								</div>
-								<button type="submit" class="btn btn-info pull-right">Send Request</button>
-							</div>
-							<!-- /.box-footer -->
-			            </form>
-			          </div>
-	    		</div>
+									<button type="submit" class="btn btn-info pull-right">Send Request</button>
+		    				</div>
+		    			</div>
+		    		</div>
+	    		</form>
 	    	</div>
 	    </section>
 	</div>
@@ -248,9 +287,9 @@ require 'template/footer.php';
 ?>	
 <script type="text/javascript">
 	//Date range picker
-    $('#reqdate').daterangepicker();
+    $('#reqdates').daterangepicker();
     //Date range picker with time picker
-    $('#reqdatetime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+    $('#reqdatestime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
     //Date range as a button
     $('#daterange-btn').daterangepicker(
         {
