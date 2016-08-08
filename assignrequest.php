@@ -110,7 +110,7 @@ elseif ($_POST['action']=='Assign') {
 				            <!-- form start -->
 				            <?php
 							$sql="SELECT r.`station_origin`, r.`request_date`,  r.`status_request`, r.`requester_id`,
-							r.`request_total`, r.`reason`, r.`reimburstment`, r.`start_date`, r.`finish_date`, rq.`rq_note`, rq.`qualification_id`, rq.`pesawat_id`, rq.`rating_id`
+							r.`request_total`, r.`reason`, r.`reimburstment`, r.`start_date`, r.`finish_date`, rq.`rq_note`, rq.`qualification_id`, rq.`pesawat_id`, rq.`rating_id`, r.`centralplanner_msg`
 			    				FROM request r INNER JOIN request_qualification rq ON r.`request_id`='".$reqid."' AND r.`request_id`=rq.`request_id`";
 		    				$result=mysqli_query($conn,$sql);
 		    				$row=mysqli_fetch_array($result);
@@ -183,6 +183,9 @@ elseif ($_POST['action']=='Assign') {
 		    		</div>
 
 		    		<?php
+		    			$reason=$row['reason'];
+		    			$reimburstment=$row['reimburstment'];
+		    			$cpmsg=$row['centralplanner_msg'];
 						$sql="SELECT * FROM request_qualification rq JOIN qualification q ON rq.`qualification_id`=q.`qualification_id` JOIN rating r ON rq.`rating_id`=r.`rating_id` WHERE request_id='".$reqid."'";
 						$result=mysqli_query($conn,$sql);
 						
@@ -251,13 +254,23 @@ elseif ($_POST['action']=='Assign') {
 								<div class="form-group">
 									<label for="reason" class="col-md-4 control-label">Reason :</label>
 									<div class="input-group">
-										<input class="form-control" name="reason" id="reason" value="<?php echo $row['reason'];?>" readonly="true">
+										<input class="form-control" name="reason" id="reason" value="<?php echo $reason;?>" readonly="true">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="reimburstment" class="col-md-4 control-label">Status Reimburstment :</label>
 									<div class="input-group">
-										<input type="text" value="<?php echo $row['reimburstment'];?>" id="reimburstment" name="reimburstment" class="form-control" readonly="true">
+										<select class="form-control" name="reimburstment" readonly="true">
+											<?php
+											if ($reimburstment==1) {
+												echo "<option value='1'>PBTH</option>";	
+											}
+											else
+											{
+												echo "<option value='2'>TMB</option>";		
+											}
+											?>
+										</select>
 									</div>
 								</div>
 
@@ -283,7 +296,7 @@ elseif ($_POST['action']=='Assign') {
 								<div class="form-group">
 									<label for="message" class="col-md-4 control-label">Note :</label>
 									<div class="input-group">
-										<textarea name="message" id="message" class="form-control"></textarea>
+										<textarea name="message" id="message" class="form-control"><?php echo $cpmsg;?></textarea>
 									</div>
 								</div>
 

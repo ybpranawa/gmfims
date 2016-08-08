@@ -118,10 +118,23 @@ session_start();
 	                		<td>".$row['requester_id']."</td>
 	                		<td>".$row['station_origin']."</td>
 	                		<td>".$row['request_date']."</td>
-	                		<td>".$row['request_total']."</td>
-	                		<td>".$row2['status_desc']."</td>
+	                		<td>".$row['request_total']."</td>";
+	                		if ($row['status_request']=='0'||$row['status_request']=='5') {
+		                  			echo "<td><span class='label label-danger'>".$row2['status_desc']."</span></td>";
+		                  		}
+		                  		else if ($row['status_request']=='1') {
+		                  			echo "<td><span class='label label-warning'>".$row2['status_desc']."</span></td>";
+		                  		}
+		                  		else if ($row['status_request']=='2'||$row['status_request']=='4') {
+		                  			echo "<td><span class='label label-success'>".$row2['status_desc']."</span></td>";
+		                  		}
+		                  		else if ($row['status_request']=='3') {
+		                  			echo "<td><span class='label label-info'>".$row2['status_desc']."</span></td>";
+		                  		}
+		                  	echo 
+	                		"	
 	                		<td>
-	                			<form method='post' action='exportexcellreq.php'>
+	                			<form method='post' action='detailcp.php'>
 	                				<input type='submit' name='action' class='btn btn-info' value='Detail'/>
 	                				<input type='hidden' name='reqid' value='".$row['request_id']."'/>
 	                			</form>	
