@@ -21,6 +21,9 @@ $reimburstment=$_POST['reimburstment'];
 
 $reqid=$_POST['reqid'];
 
+$sql="UPDATE request SET reason='".$reason."', reimburstment='".$reimburstment."' ";
+$result=mysqli_query($conn,$sql);
+
 for ($i=0; $i < $qty; $i++) { 
 	$sql="UPDATE request_qualification SET rq_note='".$note[$i]."', qualification_id='".$qualification[$i]."', pesawat_id='".$actype[$i]."', rating_id='".$rating[$i]."' WHERE rq_id='".$reqid[$i]."'";
 	$result=mysqli_query($conn,$sql);

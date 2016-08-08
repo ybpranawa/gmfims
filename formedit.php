@@ -152,6 +152,8 @@ else
 							</div>
 						</div>
 						<?php
+						$reason=$row['reason'];
+						$reimburstment=$row['reimburstment'];
 						$sql="SELECT * FROM request_qualification rq JOIN qualification q ON rq.`qualification_id`=q.`qualification_id` JOIN rating r ON rq.`rating_id`=r.`rating_id` WHERE request_id='".$reqid."'";
 						$result=mysqli_query($conn,$sql);
 						
@@ -211,8 +213,6 @@ else
 											<label for="rating" class="col-md-4 control-label">Rating up to :</label>
 											<div class="input-group">
 												<select class="form-control" name="rating[]">
-													<?php
-													?>
 													<option value="<?php echo $row['rating_id'];?>"><?php echo $row['rating_code'];?></option>
 												    <?php
 
@@ -252,7 +252,7 @@ else
 									<div class="form-group">
 										<label for="reason" class="col-md-4 control-label">Reason :</label>
 										<div class="input-group">
-											<input class="form-control" name="reason" id="reason" value="<?php echo $row['reason'];?>" placeholder="<?php echo $row['reason'];?>">
+											<input class="form-control" name="reason" id="reason" value="<?php echo $reason;?>" >
 										</div>
 									</div>
 									<div class="form-group">
@@ -260,7 +260,7 @@ else
 										<div class="input-group">
 											<select class="form-control" name="reimburstment">
 												<?php
-												if ($row['reimburstment']==1) {
+												if ($reimburstment==1) {
 													echo "<option value='1'>PBTH</option>
 											    		<option value='2'>TMB</option>";	
 												}

@@ -70,7 +70,7 @@ session_start();
 			  	</div>
 	    	</div>
 	    	<?php
-	    	$sql="SELECT COUNT(request_id) AS jmlreq FROM request WHERE requester_id='".$_SESSION['username']."'";
+	    	$sql="SELECT COUNT(request_id) AS jmlreq FROM request WHERE provider_id='".$_SESSION['username']."'";
 	    	$result=mysqli_query($conn,$sql);
 	    	$row=mysqli_fetch_array($result);
 	    	?>
@@ -81,7 +81,7 @@ session_start();
 						<div class="inner">
 					  		<h3><?php echo $row['jmlreq'];?></h3>
 
-					  		<p>Requests Sent</p>
+					  		<p>Requests Received</p>
 						</div>
 						<div class="icon">
 					  		<i class="ion ion-bag"></i>
@@ -91,7 +91,7 @@ session_start();
 
 					</div>
 					<?php
-			    	$sql="SELECT COUNT(request_id) AS jmlreq FROM request WHERE status_request='2' AND requester_id='".$_SESSION['username']."'";
+			    	$sql="SELECT COUNT(request_id) AS jmlreq FROM request WHERE status_request='3' AND provider_id='".$_SESSION['username']."'";
 			    	$result=mysqli_query($conn,$sql);
 			    	$row=mysqli_fetch_array($result);
 			    	?>
@@ -102,7 +102,7 @@ session_start();
 							<div class="inner">
 				  				<h3><?php echo $row['jmlreq'];?></h3>
 
-				  				<p>Requests Accepted</p>
+				  				<p>Qualification Sent</p>
 							</div>
 							<div class="icon">
 				  				<i class="ion ion-stats-bars"></i>
@@ -111,7 +111,7 @@ session_start();
 						</div>
 					</div>
 					<?php
-			    	$sql="SELECT COUNT(request_id) AS jmlreq FROM request WHERE status_request='4' AND requester_id='".$_SESSION['username']."'";
+			    	$sql="SELECT COUNT(request_id) AS jmlreq FROM request WHERE status_request='4' AND provider_id='".$_SESSION['username']."'";
 			    	$result=mysqli_query($conn,$sql);
 			    	$row=mysqli_fetch_array($result);
 			    	?>
@@ -131,7 +131,7 @@ session_start();
 						</div>
 					</div>
 					<?php
-			    	$sql="SELECT ROUND(AVG(request_total)) AS jmlreq FROM request  WHERE requester_id='".$_SESSION['username']."'";
+			    	$sql="SELECT ROUND(AVG(request_total)) AS jmlreq FROM request  WHERE provider_id='".$_SESSION['username']."'";
 			    	$result=mysqli_query($conn,$sql);
 			    	$row=mysqli_fetch_array($result);
 			    	?>
@@ -169,7 +169,7 @@ session_start();
 		            </div>
 
 		            <?php
-		            $sql="SELECT r.`request_id`, r.`request_date`, r.`request_total`, r.`status_request`, s.`status_desc` FROM request r JOIN status_request s ON r.`status_request`=s.`status_id` LIMIT 7";
+		            $sql="SELECT r.`request_id`, r.`request_date`, r.`request_total`, r.`status_request`, s.`status_desc` FROM request r JOIN status_request s ON r.`status_request`=s.`status_id` WHERE provider_id='".$_SESSION['username']."' LIMIT 7";
 		            $result=mysqli_query($conn,$sql);
 		            ?>
 		            <!-- /.box-header -->
@@ -217,8 +217,8 @@ session_start();
 		            </div>
 		            <!-- /.box-body -->
 		            <div class="box-footer clearfix">
-		              <a href="addrequest.php" class="btn btn-sm btn-info btn-flat pull-left">New Request</a>
-		              <a href="editrequest.php" class="btn btn-sm btn-default btn-flat pull-right">Edit Request</a>
+		              <a href="viewassrequest.php" class="btn btn-sm btn-info btn-flat pull-left">View Request</a>
+		              <a href="editassmanpower.php" class="btn btn-sm btn-default btn-flat pull-right">Edit Request</a>
 		            </div>
 		            <!-- /.box-footer -->
 		          </div>

@@ -18,7 +18,20 @@ if ($statuskoneksi=1)
 		$query="UPDATE user_account SET last_login='".date('Y-m-d H:i:sa')."', user_ip='".$ipaddr."', user_agent='".$useragent."' WHERE user_id='".$username."'";
 		mysqli_query($conn,$query);
 		$pesan="You have logged in successfully";
-		header("Location: ../dashboard.php?pesan=$pesan");
+		if ($row['role_id']=='1') {
+			header("Location: ../dashboardadmin.php?status=$statuslogin&pesan=$pesan");
+		}
+		if ($row['role_id']=='2') {
+			header("Location: ../dashboard.php?status=$statuslogin&pesan=$pesan");
+		}
+		else if ($row['role_id']=='3') {
+			header("Location: ../dashboardcp.php?status=$statuslogin&pesan=$pesan");
+		}
+		else if ($row['role_id']=='4') {
+			header("Location: ../dashboardprovider.php?status=$statuslogin&pesan=$pesan");	
+		}
+		
+		
 	}
 	else
 	{

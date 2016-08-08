@@ -19,6 +19,29 @@ else
 	<?php
 	require 'template/header.php';
 	?>
+	<script type="text/javascript">
+		function showUser(str) {
+		    if (str == "") {
+		        document.getElementById("txtHint").innerHTML = "";
+		        return;
+		    } else { 
+		        if (window.XMLHttpRequest) {
+		            // code for IE7+, Firefox, Chrome, Opera, Safari
+		            xmlhttp = new XMLHttpRequest();
+		        } else {
+		            // code for IE6, IE5
+		            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		        }
+		        xmlhttp.onreadystatechange = function() {
+		            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+		                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+		            }
+		        };
+		        xmlhttp.open("GET","controller/getmanager.php?q="+str,true);
+		        xmlhttp.send();
+		    }
+		}
+	</script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -76,125 +99,154 @@ else
 					  }
 					  ?>
 			  	</div>
-	    		<div class="col-md-6">
-	    			<div class="box box-success">
-			            <div class="box-header with-border">
-			              <h3 class="box-title">Assign Request Form</h3>
-			            </div>
-			            <!-- /.box-header -->
-			            <!-- form start -->
-			            <?php
-			            $sql="SELECT station_origin, request_date, request_qualification, pesawat_id, status_request, request_total,request_rating, requester_msg, reason, reimburstment, requester_id,
-			            start_date, finish_date, unit_id, centralplanner_msg
-	    				FROM request WHERE request_id='".$reqid."'";
-	    				$result=mysqli_query($conn,$sql);
-	    				$row=mysqli_fetch_array($result);
-			            ?>
-			            <form class="form-horizontal" action="controller/accrequest.php" method="post">
+			  	<form class="form-horizontal" action="controller/accrequest.php" method="post">
+		    		<div class="col-md-12">
+		    			<div class="box box-info">
+				            <div class="box-header with-border">
+				              <h3 class="box-title">Assign Request Form</h3>
+				            </div>
+				            <!-- /.box-header -->
+				            <!-- form start -->
+				            <?php
+							$sql="SELECT r.`station_origin`, r.`request_date`,  r.`status_request`, r.`requester_id`,
+							r.`request_total`, r.`reason`, r.`reimburstment`, r.`start_date`, r.`finish_date`, rq.`rq_note`, rq.`qualification_id`, rq.`pesawat_id`, rq.`rating_id`
+			    				FROM request r INNER JOIN request_qualification rq ON r.`request_id`='".$reqid."' AND r.`request_id`=rq.`request_id`";
+		    				$result=mysqli_query($conn,$sql);
+		    				$row=mysqli_fetch_array($result);
+				            ?>
+			            
 							<div class="box-body">
-								<div class="form-group">
-									<label for="reqiduestid" class="col-md-4 control-label">Request ID :</label>
-									<div class="input-group">
-										<input type="text" value="<?php echo $reqid; ?>" id="requestid" name="requestid" class="form-control" readonly="true">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="requestid" class="col-md-4 control-label">Request ID :</label>
+										<div class="input-group">
+											<input type="text" value="<?php echo $reqid; ?>" id="requestid" name="requestid" class="form-control" readonly="true">
+										</div>
 									</div>
 								</div>
 
-								<div class="form-group">
-									<label for="requesterid" class="col-md-4 control-label">Requester ID :</label>
-									<div class="input-group">
-										<input type="text" value="<?php echo $row['requester_id'];?>" id="requesterid" name="requesterid" class="form-control" readonly="true">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="requesterid" class="col-md-4 control-label">Requester ID :</label>
+										<div class="input-group">
+											<input type="text" value="<?php echo $row['requester_id'];?>" id="requesterid" name="requesterid" class="form-control" readonly="true">
+										</div>
 									</div>
 								</div>
 
-								<div class="form-group">
-									<label for="station" class="col-md-4 control-label">Station Origin :</label>
-									<div class="input-group">
-										<input type="text" value="<?php echo $row['station_origin'];?>" id="station" name="station" class="form-control" readonly="true">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="station" class="col-md-4 control-label">St. Origin :</label>
+										<div class="input-group">
+											<input type="text" value="<?php echo $row['station_origin'];?>" id="station" name="station" class="form-control" readonly="true">
+										</div>
 									</div>
 								</div>
 
-								<!-- Date range -->
-								<div class="form-group">
-									<label for="startdate" class="col-md-4 control-label">Start :</label>
-									<div class="input-group">
-										<?php
-										$startdate=date("Y-m-d",strtotime($row['start_date']));
-										?>
-										<input type="text" value="<?php echo $startdate;?>" id="startdate" name="startdate" class="form-control" readonly="true">
-									</div>
-								</div>
-								<!-- /.form group -->
-
-								<!-- Date range -->
-								<div class="form-group">
-									<label for="enddate" class="col-md-4 control-label">End :</label>
-									<div class="input-group">
-										<?php
-										$enddate=date("Y-m-d",strtotime($row['finish_date']));
-										?>
-										<input type="text" value="<?php echo $enddate;?>" id="enddate" name="enddate" class="form-control" readonly="true">
-									</div>
-								</div>
-								<!-- /.form group -->
-
-								<div class="form-group">
-									<label for="qty" class="col-md-4 control-label">Qty :</label>
-									<div class="input-group col-md-2">
-										<input class="form-control" type="number" id="qty" value="<?php echo $row['request_total'];?>" name="qty" readonly="true">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="qualification" class="col-md-4 control-label">Qualification :</label>
-									<div class="input-group">
-										<select class="form-control" name="qualification" readonly="true">
-											
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="startdate" class="col-md-4 control-label">Start :</label>
+										<div class="input-group">
 											<?php
-											$sql2="SELECT qualification_code FROM qualification WHERE qualification_id='".$row['request_qualification']."'";
-											$result2=mysqli_query($conn,$sql2);
-											$row2=mysqli_fetch_array($result2);
+											$startdate=date("Y-m-d",strtotime($row['start_date']));
 											?>
-											<option value="<?php echo $row['request_qualification'];?>"><?php echo $row2['qualification_code'];?></option>
-											
-										</select>
+											<input type="text" value="<?php echo $startdate;?>" id="startdate" name="startdate" class="form-control" readonly="true">
+										</div>
 									</div>
 								</div>
 
-								<div class="form-group field_wrap">
-									<label for="actype" class="col-md-4 control-label">Aircraft Type : </label>
-									<div class="input-group ">
-										<input type="text" value="<?php echo $row['pesawat_id'];?>" id="actype" name="actype" class="form-control" readonly="true">
-									</div>									
-								</div>
-
-								<div class="form-group">
-									<label for="rating" class="col-md-4 control-label">Rating Up To :</label>
-									<div class="input-group">
-										<select class="form-control" name="rating" readonly="true">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="enddate" class="col-md-4 control-label">End :</label>
+										<div class="input-group">
 											<?php
-
-											$sql2="SELECT rating_code, rating_id FROM rating WHERE rating_id='".$row['request_rating']."'";
-											$result2=mysqli_query($conn,$sql2);
-											$row2=mysqli_fetch_array($result2);
+											$enddate=date("Y-m-d",strtotime($row['finish_date']));
 											?>
-											<option value="<?php echo $row2['rating_id'];?>"><?php echo $row2['rating_code'];?></option>
-										</select>
-
+											<input type="text" value="<?php echo $enddate;?>" id="enddate" name="enddate" class="form-control" readonly="true">
+										</div>
 									</div>
 								</div>
 
-								<div class="form-group">
-									<label for="note" class="col-md-4 control-label">Additional note :</label>
-									<div class="input-group col-md-7">
-										<textarea name="note" id="note" class="form-control" readonly="true"><?php echo $row['requester_msg'];?></textarea>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="qty" class="col-md-4 control-label">Qty :</label>
+										<div class="input-group col-md-2">
+											<input class="form-control" type="number" id="qty" value="<?php echo $row['request_total'];?>" name="qty" readonly="true">
+										</div>
 									</div>
 								</div>
-
-								
-
 							</div>
 							<!-- /.box-body -->
-							<div class="box-footer">
+							
+				          </div>
+		    		</div>
+
+		    		<?php
+						$sql="SELECT * FROM request_qualification rq JOIN qualification q ON rq.`qualification_id`=q.`qualification_id` JOIN rating r ON rq.`rating_id`=r.`rating_id` WHERE request_id='".$reqid."'";
+						$result=mysqli_query($conn,$sql);
+						
+												
+						while ($row=mysqli_fetch_array($result)){ 
+						?>
+						<div class="col-md-6">
+							<div class="box box-warning">
+								<div class="box-body">
+									<div class="hidden">
+										<input type="text" value="<?php echo $row['rq_id'];?>" readonly="true" name="reqid[]" id="reqid[]">
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="qualification" class="col-md-6 control-label">Qualification :</label>
+											<div class="input-group">
+												<select class="form-control" name="qualification[]" readonly="true">
+													<option value="<?php echo $row['qualification_id'];?>"><?php echo $row['qualification_code'];?></option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group field_wrap">
+											<label for="actype" class="col-md-6 control-label">Aircraft Type : </label>
+											<div class="input-group">
+												<select class="form-control" name="actype[]" readonly="true">
+													<option value="<?php echo $row['pesawat_id'];?>"><?php echo $row['pesawat_id'];?></option>
+												</select>
+											</div>									
+										</div>
+									</div>
+
+									<div class="col-md-9">
+										<div class="form-group">
+											<label for="rating" class="col-md-4 control-label">Rating up to :</label>
+											<div class="input-group">
+												<select class="form-control" name="rating[]" readonly="true">
+													<option value="<?php echo $row['rating_id'];?>"><?php echo $row['rating_code'];?></option>
+												</select>
+
+											</div>
+										</div>
+									
+
+										<div class="form-group">
+											<label for="note" class="col-md-4 control-label">Note :</label>
+											<div class="input-group col-md-7">
+												<textarea name="note[]" id="note" class="form-control" readonly="true"><?php echo $row['rq_note'];?></textarea>
+											</div>
+										</div>
+									</div>
+									
+
+								</div>				            
+				          </div>
+		    		</div>
+		    		<?php
+		    		}
+		    		?>
+
+		    		<div class="col-md-6">
+		    			<div class="box box-success">
+		    				<div class="box-body">
 								<div class="form-group">
 									<label for="reason" class="col-md-4 control-label">Reason :</label>
 									<div class="input-group">
@@ -211,55 +263,36 @@ else
 								<div class="form-group">
 									<label for="unit" class="col-md-4 control-label">Assign to Unit :</label>
 									<div class="input-group">
-										<select class="form-control" name="unit">
-											<option value="<?php echo $row['unit_id'];?>"><?php echo $row['unit_id'];?></option>
+										<select class="form-control" name="unit" onchange="showUser(this.value)">
 											<?php
-											$sql2="SELECT unit_id, manager_id FROM unit";
+											$sql2="SELECT unit_id FROM unit";
 											$result2=mysqli_query($conn,$sql2);
 											while ($row2=mysqli_fetch_array($result2)) {
-												if ($row2['unit_id']!=$row['unit_id']) {
-													echo "<option value='".$row2['unit_id']."'>".$row2['unit_id']."</option>";	
-												}
+												echo "<option value='".$row2['unit_id']."'>".$row2['unit_id']."</option>";
 											}
 											?>
 										</select>
 									</div>
 								</div>
-								<div class="form-group">
-									<label for="manager" class="col-md-4 control-label">Manager/PIC :</label>
-									<div class="input-group">
-										<select class="form-control" name="manager">
-											<?php
-											$sql2="SELECT `p.personil_name`, `pd.personil_contact` FROM personil p, personil_detail pd WHERE `p.personil_id`='".$row2['manager_id']."' AND pd.personil_id='".$row2['manager_id']."'";
-											$result2=mysqli_query($conn,$sql2);
-											while ($row2=mysqli_fetch_array($result2)) {
-												echo "<option value='".$row2['personil_name']."'>".$row2['personil_name']."</option>";
-											}
-											?>
-										</select>
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="contact" class="col-md-4 control-label">Contact :</label>
-									<div class="input-group">
-										<input type="text" value="<?php echo $row2['personil_contact'];?>" id="contact" name="contact" class="form-control" placeholder="Contact">
-									</div>
+								
+								<div class="form-group" id="txtHint">
+									
 								</div>
 
 								<div class="form-group">
 									<label for="message" class="col-md-4 control-label">Note :</label>
 									<div class="input-group">
-										<textarea name="message" id="message" class="form-control"><?php echo $row['centralplanner_msg'];?></textarea>
+										<textarea name="message" id="message" class="form-control"></textarea>
 									</div>
 								</div>
 
-								<button type="submit" class="btn btn-success pull-right">Submit</button>
+								<button type="submit" class="btn btn-success pull-right">Assign Unit</button>
 							</div>
 							<!-- /.box-footer -->
-			            </form>
-			          </div>
-	    		</div>
+		    			</div>
+		    		</div>
+
+	    		</form>
 	    	</div>
 	    </section>
 	</div>

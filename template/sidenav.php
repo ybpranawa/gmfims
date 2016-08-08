@@ -26,7 +26,28 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
-      <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+      <?php
+      if ($_SESSION['role']=='1') {
+      ?>
+        <li><a href="dashboardadmin.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+      <?php
+      }
+      elseif ($_SESSION['role']=='2') {
+      ?>
+          <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+      <?php
+      }
+      elseif ($_SESSION['role']=='3') {
+      ?>
+        <li><a href="dashboardcp.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+      <?php
+      }
+      elseif ($_SESSION['role']=='4') {
+      ?>
+        <li><a href="dashboardprovider.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+      <?php
+      }
+      ?>
       
       <?php
       if ($_SESSION['role']=='1') {
@@ -133,17 +154,6 @@
       <?php
       }
       ?>
-
-      <li>
-        <a href="pages/calendar.html">
-          <i class="fa fa-calendar"></i> <span>Calendar</span>
-          <span class="pull-right-container">
-            <small class="label pull-right bg-red">3</small>
-            <small class="label pull-right bg-blue">17</small>
-          </span>
-        </a>
-      </li>
-
       
       <li class="header">Documentation</li>
       <li><a href="#"><i class="fa fa-book"></i> <span>How to Use IMS</span></a></li>
