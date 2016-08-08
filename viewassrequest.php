@@ -54,7 +54,7 @@ session_start();
 	    </section>
 
 	    <?php
-	    $sql="SELECT request_id, station_origin, request_date, request_qualification, pesawat_id, status_request
+	    $sql="SELECT request_id, station_origin, request_date, request_total, requester_id, status_request
 	    FROM request WHERE status_request='2'";
 	    $result=mysqli_query($conn,$sql);
 	    ?>
@@ -95,10 +95,10 @@ session_start();
 	                <thead>
 	                <tr>
 	                  <th>Request ID</th>
+	                  <th>Requester ID</th>
 	                  <th>Station Origin</th>
 	                  <th>Request Date</th>
-	                  <th>Qualification</th>
-	                  <th>Aircraft Type</th>
+	                  <th>Total Request</th>
 	                  <th>Status</th>
 	                  <th>Action</th>
 	                </tr>
@@ -115,11 +115,24 @@ session_start();
 	                	echo "
 	                	<tr>
 	                		<td>".$row['request_id']."</td>
+	                		<td>".$row['requester_id']."</td>
 	                		<td>".$row['station_origin']."</td>
 	                		<td>".$row['request_date']."</td>
-	                		<td>".$row3['qualification_code']."</td>
-	                		<td>".$row['pesawat_id']."</td>	                		
-	                		<td>".$row2['status_desc']."</td>
+	                		<td>".$row['request_total']."</td>";
+	                		if ($row['status_request']=='0'||$row['status_request']=='5') {
+		                  			echo "<td><span class='label label-danger'>".$row2['status_desc']."</span></td>";
+		                  		}
+		                  		else if ($row['status_request']=='1') {
+		                  			echo "<td><span class='label label-warning'>".$row2['status_desc']."</span></td>";
+		                  		}
+		                  		else if ($row['status_request']=='2'||$row['status_request']=='4') {
+		                  			echo "<td><span class='label label-success'>".$row2['status_desc']."</span></td>";
+		                  		}
+		                  		else if ($row['status_request']=='3') {
+		                  			echo "<td><span class='label label-info'>".$row2['status_desc']."</span></td>";
+		                  		}
+		                  	echo 
+	                		"	    
 	                		<td>
 	                			<form method='post' action='assignmanpower.php'>
 	                				<input type='submit' name='action' class='btn btn-success' value='Assign'/>
@@ -135,11 +148,11 @@ session_start();
 					</tbody>
 	                <tfoot>
 	                <tr>
-	                  <th>Request Code</th>
+	                  <th>Request ID</th>
+	                  <th>Requester ID</th>
 	                  <th>Station Origin</th>
 	                  <th>Request Date</th>
-	                  <th>Qualification</th>
-	                  <th>Aircraft Type</th>
+	                  <th>Total Request</th>
 	                  <th>Status</th>
 	                  <th>Action</th>
 	                </tr>
