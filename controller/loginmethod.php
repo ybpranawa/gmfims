@@ -19,16 +19,16 @@ if ($statuskoneksi=1)
 		mysqli_query($conn,$query);
 		$pesan="You have logged in successfully";
 		if ($row['role_id']=='1') {
-			header("Location: ../dashboardadmin.php?status=$statuslogin&pesan=$pesan");
+			header("Location: ../viewadmin/dashboardadmin.php?status=$statuslogin&pesan=$pesan");
 		}
 		if ($row['role_id']=='2') {
-			header("Location: ../dashboard.php?status=$statuslogin&pesan=$pesan");
+			header("Location: ../viewrequester/dashboard.php?status=$statuslogin&pesan=$pesan");
 		}
 		else if ($row['role_id']=='3') {
-			header("Location: ../dashboardcp.php?status=$statuslogin&pesan=$pesan");
+			header("Location: ../viewcentralplanner/dashboardcp.php?status=$statuslogin&pesan=$pesan");
 		}
 		else if ($row['role_id']=='4') {
-			header("Location: ../dashboardprovider.php?status=$statuslogin&pesan=$pesan");	
+			header("Location: ../viewprovider/dashboardprovider.php?status=$statuslogin&pesan=$pesan");	
 		}
 		
 		

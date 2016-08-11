@@ -16,6 +16,6 @@ $result=mysqli_query($conn,$sql);
 $status=1;
 
 $pesan="Request has been accepted";
-header("Location: ../viewrequest.php?status=$status&pesan=$pesan");
+header("Location: ../viewcentralplanner/viewrequest.php?status=$status&pesan=$pesan");
 
 ?>

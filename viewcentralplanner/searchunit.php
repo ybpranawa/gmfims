@@ -5,8 +5,8 @@ session_start();
 <html>
 <head>
 	<?php
-	require 'config/dbconnect.php';
-	require 'template/header.php';
+	require '../config/dbconnect.php';
+	require '../template/header.php';
 	?>
 	<script type="text/javascript">
 		function showUser(str) {
@@ -26,7 +26,7 @@ session_start();
 		                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 		            }
 		        };
-		        xmlhttp.open("GET","controller/getunit.php?q="+str,true);
+		        xmlhttp.open("GET","../controller/getunit.php?q="+str,true);
 		        xmlhttp.send();
 		    }
 		}
@@ -49,7 +49,7 @@ session_start();
 <div class="wrapper">
 	<header class="main-header">
 		<!-- Logo -->
-	    <a href="index2.html" class="logo">
+	    <a href="dashboardcp.php" class="logo">
 	      <!-- mini logo for sidebar mini 50x50 pixels -->
 	      <span class="logo-mini"><b>G</b>MF</span>
 	      <!-- logo for regular state and mobile devices -->
@@ -57,12 +57,12 @@ session_start();
 	    </a>
 	    <nav class="navbar navbar-fixed-top">
 	    	<?php
-	    	require 'template/topnav.php';
+	    	require '../template/topnav.php';
 	    	?>
 	    </nav>
 	</header>
 	<?php
-	require 'template/sidenav.php';
+	require '../template/sidenav.php';
 	?>
 	<div class="content-wrapper" style="padding-top: 50px;">
 		<section class="content-header">
@@ -110,6 +110,7 @@ session_start();
 			            			<label for="unitid" class="col-md-4 control-label">Unit ID :</label>
 			            			<div class="input-group">
 			            			<select class="form-control select2"  style="width: 100%;" onchange="showUser(this.value)" name="users">
+			            				<option>--</option>
 			            				<?php
 			            				$sql="SELECT unit_id, unit_code FROM unit";
 			            				$result=mysqli_query($conn,$sql);
@@ -135,7 +136,7 @@ session_start();
 </div>
 
 <?php
-require 'template/footer.php';
+require '../template/footer.php';
 ?>
 </body>
 </html>

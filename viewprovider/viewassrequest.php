@@ -5,28 +5,28 @@ session_start();
 <html>
 <head>
 	<?php
-	require 'config/dbconnect.php';
-	require 'template/header.php';
+	require '../config/dbconnect.php';
+	require '../template/header.php';
 	?>
 	<script>
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
-    });
-  });
-</script>
+	  $(function () {
+	    $("#example1").DataTable();
+	    $('#example2').DataTable({
+	      "paging": true,
+	      "lengthChange": false,
+	      "searching": false,
+	      "ordering": true,
+	      "info": true,
+	      "autoWidth": false
+	    });
+	  });
+	</script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 	<header class="main-header">
 		<!-- Logo -->
-	    <a href="index2.html" class="logo">
+	    <a href="dashboardprovider.php" class="logo">
 	      <!-- mini logo for sidebar mini 50x50 pixels -->
 	      <span class="logo-mini"><b>G</b>MF</span>
 	      <!-- logo for regular state and mobile devices -->
@@ -34,28 +34,28 @@ session_start();
 	    </a>
 	    <nav class="navbar navbar-fixed-top">
 	    	<?php
-	    	require 'template/topnav.php';
+	    	require '../template/topnav.php';
 	    	?>
 	    </nav>
 	</header>
 	<?php
-	require 'template/sidenav.php';
+	require '../template/sidenav.php';
 	?>
 	<div class="content-wrapper" style="padding-top: 50px;">
 		<section class="content-header">
 	      <h1>
-	        History
-	        <small>> View History</small>
+	        View Assigned Request
+	        <small>> View assigned request</small>
 	      </h1>
 	      <ol class="breadcrumb">
-	        <li><a href="#"><i class="fa fa-plus"></i> Assign</a></li>
-	        <li class="active">History</li>
+	        <li><a href="#"><i class="fa fa-plus"></i> Provide</a></li>
+	        <li class="active">View Assigned Request</li>
 	      </ol>
 	    </section>
 
 	    <?php
-	    $sql="SELECT request_id, requester_id, station_origin, request_date, request_total, status_request
-	    FROM request WHERE centralplanner_id='".$_SESSION['username']."'";
+	    $sql="SELECT request_id, station_origin, request_date, request_total, requester_id, status_request
+	    FROM request WHERE status_request='2'";
 	    $result=mysqli_query($conn,$sql);
 	    ?>
 
@@ -98,7 +98,7 @@ session_start();
 	                  <th>Requester ID</th>
 	                  <th>Station Origin</th>
 	                  <th>Request Date</th>
-	                  <th>Total Request</th>
+	                  <th>Qualification</th>
 	                  <th>Status</th>
 	                  <th>Action</th>
 	                </tr>
@@ -132,10 +132,11 @@ session_start();
 		                  			echo "<td><span class='label label-info'>".$row2['status_desc']."</span></td>";
 		                  		}
 		                  	echo 
-	                		"	
+	                		"	    
 	                		<td>
-	                			<form method='post' action='detailcp.php'>
-	                				<input type='submit' name='action' class='btn btn-info' value='Detail'/>
+	                			<form method='post' action='assignmanpower.php'>
+	                				<input type='submit' name='action' class='btn btn-success' value='Assign'/>
+	                				<input type='submit' name='action' class='btn btn-danger' value='Reject'/>
 	                				<input type='hidden' name='reqid' value='".$row['request_id']."'/>
 	                			</form>	
 	                		</td>
@@ -151,7 +152,7 @@ session_start();
 	                  <th>Requester ID</th>
 	                  <th>Station Origin</th>
 	                  <th>Request Date</th>
-	                  <th>Total Request</th>
+	                  <th>Qualification</th>
 	                  <th>Status</th>
 	                  <th>Action</th>
 	                </tr>
@@ -170,7 +171,7 @@ session_start();
 	</div>
 </div>
 <?php
-require 'template/footer.php';
+require '../template/footer.php';
 ?>
 </body>
 </html>

@@ -5,8 +5,8 @@ session_start();
 <html>
 <head>
 	<?php
-	require 'config/dbconnect.php';
-	require 'template/header.php';
+	require '../config/dbconnect.php';
+	require '../template/header.php';
 	?>
 	<script type="text/javascript">
 	$(document).ready(function(){
@@ -46,7 +46,7 @@ session_start();
 		                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 		            }
 		        };
-		        xmlhttp.open("GET","controller/specification.php?q="+str,true);
+		        xmlhttp.open("GET","../controller/specification.php?q="+str,true);
 		        xmlhttp.send();
 		    }
 		}
@@ -56,7 +56,7 @@ session_start();
 <div class="wrapper">
 	<header class="main-header">
 		<!-- Logo -->
-	    <a href="index2.html" class="logo">
+	    <a href="dashboard.php" class="logo">
 	      <!-- mini logo for sidebar mini 50x50 pixels -->
 	      <span class="logo-mini"><b>G</b>MF</span>
 	      <!-- logo for regular state and mobile devices -->
@@ -64,12 +64,12 @@ session_start();
 	    </a>
 	    <nav class="navbar navbar-fixed-top">
 	    	<?php
-	    	require 'template/topnav.php';
+	    	require '../template/topnav.php';
 	    	?>
 	    </nav>
 	</header>
 	<?php
-	require 'template/sidenav.php';
+	require '../template/sidenav.php';
 	?>
 	<div class="content-wrapper" style="padding-top: 50px;">
 		<!-- Content Header (Page header) -->
@@ -109,7 +109,7 @@ session_start();
 					  }
 					  ?>
 			  	</div>
-			  	<form class="form-horizontal" action="controller/newrequest.php" method="post">
+			  	<form class="form-horizontal" action="../controller/newrequest.php" method="post">
 		    		<div class="col-md-12">
 		    			<div class="box box-info">
 				            <div class="box-header with-border">
@@ -174,12 +174,12 @@ session_start();
 	    </section>
 	</div>
 	<?php
-	require 'template/copyright.php';
+	require '../template/copyright.php';
 	?>
 </div>
 
 <?php
-require 'template/footer.php';
+require '../template/footer.php';
 ?>	
 
 <script type="text/javascript">

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'config/dbconnect.php';
+require '../config/dbconnect.php';
 $reqid=$_POST['reqid'];
 $username=$_SESSION['username'];
 if ($_POST['action']=='Del') {
@@ -19,7 +19,7 @@ else
 <html>
 <head>
 	<?php
-	require 'template/header.php';
+	require '../template/header.php';
 	?>
 	<script type="text/javascript">
 		function showUser(str) {
@@ -39,7 +39,7 @@ else
 		                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
 		            }
 		        };
-		        xmlhttp.open("GET","controller/getmanager.php?q="+str,true);
+		        xmlhttp.open("GET","../controller/getmanager.php?q="+str,true);
 		        xmlhttp.send();
 		    }
 		}
@@ -57,12 +57,12 @@ else
 	    </a>
 	    <nav class="navbar navbar-fixed-top">
 	    	<?php
-	    	require 'template/topnav.php';
+	    	require '../template/topnav.php';
 	    	?>
 	    </nav>
 	</header>
 	<?php
-	require 'template/sidenav.php';
+	require '../template/sidenav.php';
 	?>
 	<div class="content-wrapper" style="padding-top: 50px;">
 		<!-- Content Header (Page header) -->
@@ -101,7 +101,7 @@ else
 					  }
 					  ?>
 			  	</div>
-			  	<form class="form-horizontal" action="controller/accrequest.php" method="post">
+			  	<form class="form-horizontal" action="../controller/accrequest.php" method="post">
 		    		<div class="col-md-12">
 		    			<div class="box box-info">
 				            <div class="box-header with-border">
@@ -313,7 +313,7 @@ else
 	</div>
 </div>
 <?php
-require 'template/footer.php';
+require '../template/footer.php';
 ?>	
 <script type="text/javascript">
 	//Date range picker

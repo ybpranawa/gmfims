@@ -5,8 +5,8 @@ session_start();
 <html>
 <head>
 	<?php
-	require 'config/dbconnect.php';
-	require 'template/header.php';
+	require '../config/dbconnect.php';
+	require '../template/header.php';
 	?>
 	<script type="text/javascript">
 
@@ -16,7 +16,7 @@ session_start();
 <div class="wrapper">
 	<header class="main-header">
 		<!-- Logo -->
-	    <a href="index2.html" class="logo">
+	    <a href="dashboard.php" class="logo">
 	      <!-- mini logo for sidebar mini 50x50 pixels -->
 	      <span class="logo-mini"><b>G</b>MF</span>
 	      <!-- logo for regular state and mobile devices -->
@@ -24,12 +24,12 @@ session_start();
 	    </a>
 	    <nav class="navbar navbar-fixed-top">
 	    	<?php
-	    	require 'template/topnav.php';
+	    	require '../template/topnav.php';
 	    	?>
 	    </nav>
 	</header>
 	<?php
-	require 'template/sidenav.php';
+	require '../template/sidenav.php';
 	?>
 	<div class="content-wrapper" style="padding-top: 50px;">
 		<!-- Content Header (Page header) -->
@@ -86,7 +86,7 @@ session_start();
 						<div class="icon">
 					  		<i class="ion ion-bag"></i>
 						</div>
-						<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+						<a href="historyrequester.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 
 					</div>
@@ -107,7 +107,7 @@ session_start();
 							<div class="icon">
 				  				<i class="ion ion-stats-bars"></i>
 							</div>
-							<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+							<a href="historyrequester.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
 					<?php
@@ -127,7 +127,7 @@ session_start();
 							<div class="icon">
 							  	<i class="ion ion-person-add"></i>
 							</div>
-							<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+							<a href="historyrequester.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
 					<?php
@@ -149,7 +149,7 @@ session_start();
 						<div class="icon">
 						  	<i class="ion ion-pie-graph"></i>
 						</div>
-						<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+						<a href="historyrequester.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 				<!-- ./col -->
@@ -237,10 +237,9 @@ session_start();
 			                  <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
 			                    <i class="fa fa-bars"></i></button>
 			                  <ul class="dropdown-menu pull-right" role="menu">
-			                    <li><a href="#">Add new event</a></li>
-			                    <li><a href="#">Clear events</a></li>
+			                    <li><a href="addrequest.php">Add new request</a></li>
 			                    <li class="divider"></li>
-			                    <li><a href="#">View calendar</a></li>
+			                    <li><a href="historyrequester.php">View requests</a></li>
 			                  </ul>
 			                </div>
 			                <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -255,49 +254,7 @@ session_start();
 			              <!--The calendar -->
 			              <div id="calendar" style="width: 100%"></div>
 			            </div>
-			            <!-- /.box-body -->
-			            <div class="box-footer text-black">
-			              <div class="row">
-			                <div class="col-sm-6">
-			                  <!-- Progress bars -->
-			                  <div class="clearfix">
-			                    <span class="pull-left">Task #1</span>
-			                    <small class="pull-right">90%</small>
-			                  </div>
-			                  <div class="progress xs">
-			                    <div class="progress-bar progress-bar-green" style="width: 90%;"></div>
-			                  </div>
-
-			                  <div class="clearfix">
-			                    <span class="pull-left">Task #2</span>
-			                    <small class="pull-right">70%</small>
-			                  </div>
-			                  <div class="progress xs">
-			                    <div class="progress-bar progress-bar-green" style="width: 70%;"></div>
-			                  </div>
-			                </div>
-			                <!-- /.col -->
-			                <div class="col-sm-6">
-			                  <div class="clearfix">
-			                    <span class="pull-left">Task #3</span>
-			                    <small class="pull-right">60%</small>
-			                  </div>
-			                  <div class="progress xs">
-			                    <div class="progress-bar progress-bar-green" style="width: 60%;"></div>
-			                  </div>
-
-			                  <div class="clearfix">
-			                    <span class="pull-left">Task #4</span>
-			                    <small class="pull-right">40%</small>
-			                  </div>
-			                  <div class="progress xs">
-			                    <div class="progress-bar progress-bar-green" style="width: 40%;"></div>
-			                  </div>
-			                </div>
-			                <!-- /.col -->
-			              </div>
-			              <!-- /.row -->
-			            </div>
+			            
 					</div>
 					<!-- /.box -->
 	    		</div>
@@ -308,7 +265,7 @@ session_start();
 </div>
 
 <?php
-require 'template/footer.php';
+require '../template/footer.php';
 ?>
 </body>
 </html>

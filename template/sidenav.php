@@ -5,7 +5,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="images/gmflogo.jpg" class="img-circle" alt="User Image">
+        <img src="../images/gmflogo.jpg" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
         <p><?php echo $_SESSION['username'];?></p>
@@ -157,6 +157,7 @@
       
       <li class="header">Documentation</li>
       <li><a href="#"><i class="fa fa-book"></i> <span>How to Use IMS</span></a></li>
+      <li><a href="#"><i class="fa fa-book"></i> <span>App Specification</span></a></li>
       
     </ul>
   </section>
