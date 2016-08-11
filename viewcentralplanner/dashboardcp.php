@@ -39,6 +39,7 @@ session_start();
 		OSM_URL = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 		OSM_ATTRIB = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 	</script>
+	
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -269,9 +270,9 @@ L.marker([-6.131005, 106.65609], {icon: greenmarker}).addTo(mymap1).bindPopup("<
 <script src="../plugins/fullcalendar/fullcalendar.min.js"></script>
 <!-- Page specific script -->
 <script>
-  $(function () {
+  $(document).ready(function () {
     
-    $('#calendar').fullCalendar({
+    /*$('#calendar').fullCalendar({
 	    events: function(start, end, timezone, callback) {
 	        $.ajax({
 	            url: '../controller/getdaterequest.php',
@@ -293,6 +294,15 @@ L.marker([-6.131005, 106.65609], {icon: greenmarker}).addTo(mymap1).bindPopup("<
 	            }
 	        });
 	    }
+	});*/
+
+	$('#calendar').fullCalendar({
+		events:'../controller/getdaterequest.php',
+		header: {
+	        left: 'prev,next today',
+	        center: 'title',
+	        right: 'month,agendaWeek,agendaDay'
+	      }
 	});
     /* initialize the calendar
      -----------------------------------------------------------------*/
