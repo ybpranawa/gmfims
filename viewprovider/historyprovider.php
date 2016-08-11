@@ -134,7 +134,7 @@ session_start();
 		                  	echo 
 	                		"	
 	                		<td>
-	                			<form method='post' action='detailcp.php'>
+	                			<form method='post' action='detailprovider.php'>
 	                				<input type='submit' name='action' class='btn btn-info' value='Detail'/>
 	                				<input type='hidden' name='reqid' value='".$row['request_id']."'/>
 	                			</form>	
