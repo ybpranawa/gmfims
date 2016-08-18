@@ -57,6 +57,12 @@ for ($i=0; $i<$qty ; $i++) {
 	$n++;
 }
 
+$sql="SELECT p.`personil_email` FROM personil_detail p, user_account u WHERE u.`user_id`=p.`personil_id` AND (u.`role_id`='3' OR u.`role_id`='5' OR u.`role_id`='7')";
+$result=mysqli_query($conn,$sql);
+while ($row=mysqli_fetch_array($result)) {
+	require 'sentmail.php';	
+}
+
 $status=1;
 $pesan="Your request has been submitted";
 

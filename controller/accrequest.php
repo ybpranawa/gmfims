@@ -13,6 +13,12 @@ $sql="UPDATE request SET centralplanner_id='".$cp."', approved_date='".$approved
 WHERE request_id='".$reqid."' ";
 $result=mysqli_query($conn,$sql);
 
+$sql="SELECT p.`personil_email` FROM personil_detail p WHERE p.`personil_id`='".$provid."' ";
+$result=mysqli_query($conn,$sql);
+while ($row=mysqli_fetch_array($result)) {
+	require 'sentmail.php';	
+}
+
 $status=1;
 
 $pesan="Request has been accepted";
