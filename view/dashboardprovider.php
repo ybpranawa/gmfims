@@ -4,6 +4,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
+	<meta http-equiv="refresh" content="15">
 	<?php
 	require '../config/dbconnect.php';
 	require '../template/header.php';
