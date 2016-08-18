@@ -78,7 +78,7 @@ session_start();
 		            </div>
 		            <!-- /.box-header -->
 		            <!-- form start -->
-		            <form class="form-horizontal">
+		            <form class="form-horizontal" action="../controller/admin/addstation.php" method="post">
 		              <div class="box-body">
 		                <div class="form-group">
 		                  <label for="stationid" class="col-md-4 control-label">Station ID :</label>
@@ -95,12 +95,23 @@ session_start();
 		                    <input type="text" class="form-control" id="stationname" name="stationname" placeholder="Soekarno-Hatta Intl. Airpot, etc." required>
 		                  </div>
 		                </div>
-
+		                <?php
+		                $sql="SELECT unit_id FROM unit";
+		                $result=mysqli_query($conn,$sql);
+		                ?>
 		                <div class="form-group">
 		                  <label for="unitid" class="col-md-4 control-label">Unit ID :</label>
 
 		                  <div class="col-md-6">
-		                    <input type="text" class="form-control" id="stationname" name="stationname" placeholder="TFC, TFS, TFK, etc. (refers to unit database)" required>
+		                  	<select name="unitid" class="form-control" required>
+		                  	<?php
+		                  	while ($row=mysqli_fetch_array($result)) {
+		                  	?>
+		                  		<option value="<?php echo $row['unit_id'];?>"><?php echo $row['unit_id'];?></option>
+		                  	<?php
+		                  	}
+		                  	?>
+		                    </select>
 		                  </div>
 		                </div>
 
@@ -108,7 +119,7 @@ session_start();
 		                  <label for="lat" class="col-md-4 control-label">Lattitude :</label>
 
 		                  <div class="col-md-6">
-		                    <input type="text" class="form-control" id="stationname" name="stationname" placeholder="11,12345 (based on google lattitude)" required>
+		                    <input type="text" class="form-control" id="lat" name="lat" placeholder="11,12345 (based on google lattitude)" required>
 		                  </div>
 		                </div>
 

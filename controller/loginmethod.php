@@ -22,15 +22,17 @@ if ($statuskoneksi=1)
 			header("Location: ../viewadmin/dashboardadmin.php?status=$statuslogin&pesan=$pesan");
 		}
 		if ($row['role_id']=='2') {
-			header("Location: ../viewrequester/dashboard.php?status=$statuslogin&pesan=$pesan");
+			header("Location: ../view/dashboard.php?status=$statuslogin&pesan=$pesan");
 		}
 		else if ($row['role_id']=='3') {
-			header("Location: ../viewcentralplanner/dashboardcp.php?status=$statuslogin&pesan=$pesan");
+			header("Location: ../view/dashboardcp.php?status=$statuslogin&pesan=$pesan");
 		}
 		else if ($row['role_id']=='4') {
 			header("Location: ../viewprovider/dashboardprovider.php?status=$statuslogin&pesan=$pesan");	
 		}
-		
+		elseif ($row['role_id']=='5'||$row['role_id']=='6'||$row['role_id']=='7'||$row['role_id']=='8') {
+			header("Location: ../view/dashboardwelcome.php?status=$statuslogin&pesan=$pesan");
+		}
 		
 	}
 	else

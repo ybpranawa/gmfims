@@ -78,7 +78,7 @@ session_start();
 		            </div>
 		            <!-- /.box-header -->
 		            <!-- form start -->
-		            <form class="form-horizontal">
+		            <form class="form-horizontal" action="../controller/admin/addunit.php" method="post">
 		              <div class="box-body">
 		                <div class="form-group">
 		                  <label for="unitid" class="col-md-4 control-label">Unit ID :</label>
@@ -89,7 +89,7 @@ session_start();
 		                </div>
 		                
 		                <div class="form-group">
-		                  <label for="unitname" class="col-md-4 control-label">Unit Name :</label>
+		                  <label for="unitname" class="col-md-4 control-label">Unit Code :</label>
 
 		                  <div class="col-md-6">
 		                    <input type="text" class="form-control" id="unitname" name="unitname" placeholder="TFC, TFS, TFK, etc." required>

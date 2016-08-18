@@ -108,10 +108,10 @@ session_start();
 	                		<td>".$row['rating_code']."</td>
 	                		<td>".$row['rating_description']."</td>
 	                		<td><center>
-	                			<form method='post' action=''>
+	                			<form method='post' action='formeditrating.php'>
 	                				<input type='submit' name='action' class='btn btn-success' value='Edit'/>
 	                				<input type='submit' name='action' class='btn btn-danger' value='Del'/>
-	                				<input type='hidden' name='reqid' value='".$row['qualification_id']."'/>
+	                				<input type='hidden' name='ratingid' value='".$row['rating_id']."'/>
 	                			</form>	
 	                			</center>
 	                		</td>
@@ -123,9 +123,9 @@ session_start();
 					</tbody>
 	                <tfoot>
 	                <tr>
-	                  <th>Qualification ID</th>
-	                  <th>Qualification Code</th>
-	                  <th>Qualification Desc</th>
+	                  <th>Rating ID</th>
+	                  <th>Rating Code</th>
+	                  <th>Rating Desc</th>
 	                  <th>Action</th>
 	                </tr>
 	                </tfoot>

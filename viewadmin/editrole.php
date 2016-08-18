@@ -106,10 +106,10 @@ session_start();
 	                		<td>".$row['role_id']."</td>
 	                		<td>".$row['role_name']."</td>
 	                		<td><center>
-	                			<form method='post' action=''>
+	                			<form method='post' action='formeditrole.php'>
 	                				<input type='submit' name='action' class='btn btn-success' value='Edit'/>
 	                				<input type='submit' name='action' class='btn btn-danger' value='Del'/>
-	                				<input type='hidden' name='reqid' value='".$row['role_name']."'/>
+	                				<input type='hidden' name='roleid' value='".$row['role_id']."'/>
 	                			</form>	
 	                			</center>
 	                		</td>

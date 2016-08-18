@@ -84,7 +84,7 @@ session_start();
 		            </div>
 		            <!-- /.box-header -->
 		            <!-- form start -->
-		            <form class="form-horizontal">
+		            <form class="form-horizontal" action="../controller/admin/addqualification.php" method="post">
 		              <div class="box-body">
 		                <div class="form-group">
 		                  <label for="qid" class="col-md-4 control-label">Qualification ID :</label>

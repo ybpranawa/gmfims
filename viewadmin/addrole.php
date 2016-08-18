@@ -78,7 +78,7 @@ session_start();
 		            </div>
 		            <!-- /.box-header -->
 		            <!-- form start -->
-		            <form class="form-horizontal">
+		            <form class="form-horizontal" action="../controller/admin/addrole.php" method="post">
 		              <div class="box-body">
 		                <div class="form-group">
 		                  <label for="roleid" class="col-md-4 control-label">Role ID :</label>

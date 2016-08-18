@@ -112,10 +112,10 @@ session_start();
 	                		<td>".$row['station_lat']."</td>
 	                		<td>".$row['station_long']."</td>  
 	                		<td><center>
-	                			<form method='post' action=''>
+	                			<form method='post' action='formeditstation.php'>
 	                				<input type='submit' name='action' class='btn btn-success' value='Edit'/>
 	                				<input type='submit' name='action' class='btn btn-danger' value='Del'/>
-	                				<input type='hidden' name='reqid' value='".$row['station_id']."'/>
+	                				<input type='hidden' name='statid' value='".$row['station_id']."'/>
 	                			</form>	
 	                			</center>
 	                		</td>

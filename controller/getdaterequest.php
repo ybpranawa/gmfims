@@ -1,7 +1,8 @@
 <?php
 session_start();
 require '../config/dbconnect.php';
-$sql="SELECT `station_origin`, `start_date`, `finish_date`, status_request FROM request";
+$sql="SELECT r.`station_origin`, r.`start_date`, r.`finish_date`, r.`status_request`, q.`qualification_code`, rt.`rating_code` FROM request r JOIN request_qualification rq ON 
+r.request_id=rq.`request_id` JOIN qualification q ON q.`qualification_id`=rq.`qualification_id` JOIN rating rt ON rt.`rating_id`=rq.`rating_id`";
 $result=mysqli_query($conn,$sql);
 
 while ($row=mysqli_fetch_assoc($result)) {
@@ -31,9 +32,10 @@ while ($row=mysqli_fetch_assoc($result)) {
 	}
 
 	$arr[]= array(
-		"title" => $row['station_origin'], 
+		"title" => $row['station_origin']." ".$row['qualification_code']." Up to ".$row['rating_code'], 
 		"start" => date("Y-m-d",strtotime($row['start_date'])),
 		"end" => date("Y-m-d",strtotime($row['finish_date'])),
+		"url" => "viewrequest.php",
 		"color" => $color
 	);
 }

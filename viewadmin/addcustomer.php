@@ -78,13 +78,13 @@ session_start();
 		            </div>
 		            <!-- /.box-header -->
 		            <!-- form start -->
-		            <form class="form-horizontal">
+		            <form class="form-horizontal" action="../controller/admin/addcustomer.php" method="post">
 		              <div class="box-body">
 		                <div class="form-group">
 		                  <label for="custid" class="col-md-4 control-label">Customer ID :</label>
 
 		                  <div class="col-md-6">
-		                    <input type="text" class="form-control" id="custid" name="unitid" placeholder="" required>
+		                    <input type="text" class="form-control" id="custid" name="custid" placeholder="" required>
 		                  </div>
 		                </div>
 		                

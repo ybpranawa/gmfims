@@ -110,10 +110,10 @@ session_start();
 	                		<td>".date("Y-m-d",strtotime($row['last_login']))."</td>
 	                		<td>".$row['user_ip']."</td>
 	                		<td><center>
-	                			<form method='post' action=''>
+	                			<form method='post' action='formedituser.php'>
 	                				<input type='submit' name='action' class='btn btn-success' value='Edit'/>
 	                				<input type='submit' name='action' class='btn btn-danger' value='Del'/>
-	                				<input type='hidden' name='reqid' value='".$row['user_id']."'/>
+	                				<input type='hidden' name='userid' value='".$row['user_id']."'/>
 	                			</form>	
 	                			</center>
 	                		</td>

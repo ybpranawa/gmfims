@@ -110,7 +110,7 @@ session_start();
 	                		<td>".$row['personil_unit']."</td>
 	                		<td>".$row['personil_jobtitle']."</td>
 	                		<td><center>
-	                			<form method='post' action=''>
+	                			<form method='post' action='formeditmanpower.php'>
 	                				<input type='submit' name='action' class='btn btn-success' value='Edit'/>
 	                				<input type='submit' name='action' class='btn btn-danger' value='Del'/>
 	                				<input type='hidden' name='reqid' value='".$row['personil_id']."'/>
@@ -125,9 +125,10 @@ session_start();
 					</tbody>
 	                <tfoot>
 	                <tr>
-	                  <th>Qualification ID</th>
-	                  <th>Qualification Code</th>
-	                  <th>Qualification Desc</th>
+	                  <th>Emp ID</th>
+	                  <th>Emp Name</th>
+	                  <th>Emp unit</th>
+	                  <th>Emp Jobtitle</th>
 	                  <th>Action</th>
 	                </tr>
 	                </tfoot>

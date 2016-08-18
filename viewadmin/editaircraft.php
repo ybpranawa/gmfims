@@ -108,10 +108,10 @@ session_start();
 	                		<td>".$row['pesawat_type']."</td>
 	                		<td>".$row['pesawat_desc']."</td>
 	                		<td><center>
-	                			<form method='post' action=''>
+	                			<form method='post' action='formeditaircraft.php'>
 	                				<input type='submit' name='action' class='btn btn-success' value='Edit'/>
 	                				<input type='submit' name='action' class='btn btn-danger' value='Del'/>
-	                				<input type='hidden' name='reqid' value='".$row['pesawat_id']."'/>
+	                				<input type='hidden' name='airid' value='".$row['pesawat_id']."'/>
 	                			</form>	
 	                			</center>
 	                		</td>

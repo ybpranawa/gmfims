@@ -26,28 +26,45 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
       <li class="header">MAIN NAVIGATION</li>
-      <?php
-      if ($_SESSION['role']=='1') {
-      ?>
-        <li><a href="dashboardadmin.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-      <?php
-      }
-      elseif ($_SESSION['role']=='2') {
-      ?>
-          <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-      <?php
-      }
-      elseif ($_SESSION['role']=='3') {
-      ?>
-        <li><a href="dashboardcp.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-      <?php
-      }
-      elseif ($_SESSION['role']=='4') {
-      ?>
-        <li><a href="dashboardprovider.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-      <?php
-      }
-      ?>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-dashboard"></i>
+          <span>Dashboard</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <?php
+          if ($_SESSION['role']>'4'&&$_SESSION['role']<='8') {
+          ?>
+            <li><a href="dashboardwelcome.php"><i class="fa fa-dashboard"></i> <span>Main Dashboard</span></a></li>
+          <?php
+          }
+          if ($_SESSION['role']=='1') {
+          ?>
+            <li><a href="dashboardadmin.php"><i class="fa fa-dashboard"></i> <span>Dashboard Admin</span></a></li>
+          <?php
+          }
+          if ($_SESSION['role']=='2'||$_SESSION['role']=='5'||$_SESSION['role']=='6'||$_SESSION['role']=='7') {
+          ?>
+              <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> <span>Dashboard Requester</span></a></li>
+          <?php
+          }
+          if ($_SESSION['role']=='3'||$_SESSION['role']=='5'||$_SESSION['role']=='7'||$_SESSION['role']=='8') {
+          ?>
+            <li><a href="dashboardcp.php"><i class="fa fa-dashboard"></i> <span>Dashboard Central Planner</span></a></li>
+          <?php
+          }
+          if ($_SESSION['role']=='4'||$_SESSION['role']=='6'||$_SESSION['role']=='7'||$_SESSION['role']=='8') {
+          ?>
+            <li><a href="dashboardprovider.php"><i class="fa fa-dashboard"></i> <span>Dashboard Provider</span></a></li>
+          
+          <?php
+          }
+          ?>
+        </ul>
+      </li>
       
       <?php
       if ($_SESSION['role']=='1') {
@@ -95,7 +112,7 @@
       </li>
       <?php
       }
-      if ($_SESSION['role']=='2') {
+      if ($_SESSION['role']=='2'||$_SESSION['role']=='5'||$_SESSION['role']=='6'||$_SESSION['role']=='7') {
       ?>
 
       <li class="treeview">
@@ -114,7 +131,7 @@
       </li>
       <?php
       }
-      if ($_SESSION['role']=='3') {
+      if ($_SESSION['role']=='3'||$_SESSION['role']=='5'||$_SESSION['role']=='7'||$_SESSION['role']=='8') {
       ?>
 
       <li class="treeview">
@@ -134,7 +151,7 @@
       </li>
       <?php
       }
-      if ($_SESSION['role']=='4') {
+      if ($_SESSION['role']=='4'||$_SESSION['role']=='6'||$_SESSION['role']=='7'||$_SESSION['role']=='8') {
       ?>
 
       <li class="treeview">

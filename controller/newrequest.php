@@ -60,5 +60,5 @@ for ($i=0; $i<$qty ; $i++) {
 $status=1;
 $pesan="Your request has been submitted";
 
-header("Location: ../viewrequester/addrequest.php?status=$status&pesan=$pesan");
+header("Location: ../view/addrequest.php?status=$status&pesan=$pesan");
 ?>

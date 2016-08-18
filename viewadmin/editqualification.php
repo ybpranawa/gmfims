@@ -108,10 +108,10 @@ session_start();
 	                		<td>".$row['qualification_code']."</td>
 	                		<td>".$row['qualification_desc']."</td>
 	                		<td><center>
-	                			<form method='post' action=''>
+	                			<form method='post' action='formeditqualification.php'>
 	                				<input type='submit' name='action' class='btn btn-success' value='Edit'/>
 	                				<input type='submit' name='action' class='btn btn-danger' value='Del'/>
-	                				<input type='hidden' name='reqid' value='".$row['qualification_id']."'/>
+	                				<input type='hidden' name='qualid' value='".$row['qualification_id']."'/>
 	                			</form>	
 	                			</center>
 	                		</td>

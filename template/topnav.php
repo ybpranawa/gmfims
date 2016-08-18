@@ -238,9 +238,15 @@
         </li>
         <!-- Menu Footer-->
         <li class="user-footer">
+          <?php
+          if ($_SESSION['role']!='1') {
+          ?>
           <div class="pull-left">
             <a href="editprofile.php" class="btn btn-default btn-flat">Profile</a>
           </div>
+          <?php
+          }
+          ?>
           <div class="pull-right">
             <a href="../controller/logoutmethod.php" class="btn btn-default btn-flat">Sign out</a>
           </div>

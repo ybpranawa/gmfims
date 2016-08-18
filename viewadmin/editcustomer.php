@@ -106,10 +106,10 @@ session_start();
 	                		<td>".$row['customer_id']."</td>
 	                		<td>".$row['customer_desc']."</td>
 	                		<td><center>
-	                			<form method='post' action=''>
+	                			<form method='post' action='formeditcustomer.php'>
 	                				<input type='submit' name='action' class='btn btn-success' value='Edit'/>
 	                				<input type='submit' name='action' class='btn btn-danger' value='Del'/>
-	                				<input type='hidden' name='reqid' value='".$row['customer_id']."'/>
+	                				<input type='hidden' name='custid' value='".$row['customer_id']."'/>
 	                			</form>	
 	                			</center>
 	                		</td>

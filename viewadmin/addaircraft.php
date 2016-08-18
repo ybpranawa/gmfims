@@ -35,12 +35,12 @@ session_start();
 		<!-- Content Header (Page header) -->
 	    <section class="content-header">
 	      <h1>
-	        Add Station
-	        <small>> Add station in database</small>
+	        Add Aircraft
+	        <small>> Add aircraft in database</small>
 	      </h1>
 	      <ol class="breadcrumb">
 	        <li><a href="#"><i class="fa fa-plus"></i> Insert Data</a></li>
-	        <li class="active">Add Station</li>
+	        <li class="active">Add Aircraft</li>
 	      </ol>
 	    </section>
 
@@ -74,11 +74,11 @@ session_start();
 		          <!-- Horizontal Form -->
 		          <div class="box box-info">
 		            <div class="box-header with-border">
-		              <h3 class="box-title">Add Station</h3>
+		              <h3 class="box-title">Add Aircraft</h3>
 		            </div>
 		            <!-- /.box-header -->
 		            <!-- form start -->
-		            <form class="form-horizontal">
+		            <form class="form-horizontal" action="../controller/admin/addaircraft.php" method="post">
 		              <div class="box-body">
 		                <div class="form-group">
 		                  <label for="pesawatid" class="col-md-4 control-label">Aircraft ID :</label>

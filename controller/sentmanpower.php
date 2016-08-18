@@ -11,5 +11,5 @@ foreach ($_POST['reqid'] as $row) {
 $status=1;
 
 $pesan="Manpower has been sent";
-header("Location: ../viewprovider/viewassrequest.php?status=$status&pesan=$pesan");
+header("Location: ../view/viewassrequest.php?status=$status&pesan=$pesan");
 ?>
