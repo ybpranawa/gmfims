@@ -87,6 +87,7 @@
           <li><a href="adduser.php"><i class="fa fa-circle-o"></i> Add User Account</a></li>
           <li><a href="addcustomer.php"><i class="fa fa-circle-o"></i> Add Customer</a></li>
           <li><a href="addrating.php"><i class="fa fa-circle-o"></i> Add Rating</a></li>
+          <li><a href="addmanager.php"><i class="fa fa-circle-o"></i> Add Manager</a></li>
         </ul>
       </li>
 
@@ -108,6 +109,7 @@
           <li><a href="edituser.php"><i class="fa fa-circle-o"></i> Edit User Account</a></li>
           <li><a href="editcustomer.php"><i class="fa fa-circle-o"></i> Edit Customer</a></li>
           <li><a href="editrating.php"><i class="fa fa-circle-o"></i> Edit Rating</a></li>
+          <li><a href="editmanager.php"><i class="fa fa-circle-o"></i> Edit Manager</a></li>
         </ul>
       </li>
       <?php
