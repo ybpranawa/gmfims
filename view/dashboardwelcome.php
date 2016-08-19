@@ -4,7 +4,6 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="refresh" content="15">
 	<?php
 	require '../config/dbconnect.php';
 	?>
@@ -99,140 +98,13 @@ session_start();
 					  ?>
 			  	</div>
 	    	</div>
-	    	<?php
-	    	$sql="SELECT COUNT(request_id) AS jmlreq FROM request WHERE centralplanner_id='".$_SESSION['username']."'";
-	    	$result=mysqli_query($conn,$sql);
-	    	$row=mysqli_fetch_array($result);
-	    	?>
-	    	<div class="row">
-	    		<div class="col-lg-3 col-xs-6">
-					<!-- small box -->
-					<div class="small-box bg-yellow">
-						<div class="inner">
-					  		<h3><?php echo $row['jmlreq'];?></h3>
-
-					  		<p>Requests Received</p>
-						</div>
-						<div class="icon">
-					  		<i class="ion ion-bag"></i>
-						</div>
-						<a href="historycp.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-					</div>
-
-					</div>
-					<?php
-			    	$sql="SELECT COUNT(request_id) AS jmlreq FROM request WHERE status_request='2' AND centralplanner_id='".$_SESSION['username']."'";
-			    	$result=mysqli_query($conn,$sql);
-			    	$row=mysqli_fetch_array($result);
-			    	?>
-					<!-- ./col -->
-					<div class="col-lg-3 col-xs-6">
-					<!-- small box -->
-						<div class="small-box bg-green">
-							<div class="inner">
-				  				<h3><?php echo $row['jmlreq'];?></h3>
-
-				  				<p>Requests Accepted</p>
-							</div>
-							<div class="icon">
-				  				<i class="ion ion-stats-bars"></i>
-							</div>
-							<a href="historycp.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-						</div>
-					</div>
-					<?php
-			    	$sql="SELECT COUNT(request_id) AS jmlreq FROM request WHERE status_request='4' AND centralplanner_id='".$_SESSION['username']."'";
-			    	$result=mysqli_query($conn,$sql);
-			    	$row=mysqli_fetch_array($result);
-			    	?>
-					<!-- ./col -->
-					<div class="col-lg-3 col-xs-6">
-					<!-- small box -->
-						<div class="small-box bg-aqua">
-							<div class="inner">
-					  			<h3><?php echo $row['jmlreq'];?></h3>
-
-					  			<p>Requests Done</p>
-							</div>
-							<div class="icon">
-							  	<i class="ion ion-person-add"></i>
-							</div>
-							<a href="historycp.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-						</div>
-					</div>
-					<?php
-			    	$sql="SELECT ROUND(AVG(request_total)) AS jmlreq FROM request WHERE centralplanner_id='".$_SESSION['username']."'";
-			    	$result=mysqli_query($conn,$sql);
-			    	$row=mysqli_fetch_array($result);
-			    	?>
-					<!-- ./col -->
-					<div class="col-lg-3 col-xs-6">
-						<!-- small box -->
-						<div class="small-box bg-red">
-							<div class="inner">
-							  	<h3><?php if ($row['jmlreq']==NULL) 
-							  	echo "0";
-							  	else
-							  	echo $row['jmlreq'];?></h3>
-
-							  	<p>Avg. Total Qualification</p>
-							</div>
-						<div class="icon">
-						  	<i class="ion ion-pie-graph"></i>
-						</div>
-						<a href="historycp.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-					</div>
-				</div>
-				<!-- ./col -->
-	    	</div>
-	    	<div class="row">
-	    		<div class="col-md-12">
-	    			<div class="box box-success">
-	    				<div class="box-header">
-	    					<h4 class="box-title">Request by Station</h4>
-	    				</div>
-	    				<div class="box-body">
-	    					<div id="mapid1" class="mapclass" style="height: 100%;">
-	    						<div style="height:300px;">
-	    							
-	    						</div>	
-	    					</div>	
-	    				</div>
-	    			</div>
-	    		</div>
-	    	</div>
-	    	<div class="row">
-	    		<div class="col-md-3">
-		          <div class="box box-solid">
-		            <div class="box-header with-border">
-		              <h4 class="box-title">Glossary</h4>
-		            </div>
-		            <div class="box-body">
-		              <!-- the events -->
-		              <div id="external-events">
-		              	<div class="external-event bg-yellow">Requested</div>
-		                <div class="external-event bg-green">Accepted by CP</div>
-		                <div class="external-event bg-aqua">Processed by provider</div>
-		                <div class="external-event bg-red">Canceled/Rejected</div>
-		              </div>
-		            </div>
-		            <!-- /.box-body -->
-		          </div>
-		         
-		        </div>
-		        <!-- /.col -->
-		        <div class="col-md-9">
-		          <div class="box box-primary">
-		            <div class="box-body no-padding">
-		              <!-- THE CALENDAR -->
-		              <div id="calendar"></div>
-		            </div>
-		            <!-- /.box-body -->
-		          </div>
-		          <!-- /. box -->
-		        </div>
-		        <!-- /.col -->
-	    	</div>	    	
+	    	
+	    	<div class="pad margin no-print">
+		      <div class="callout callout-info" style="margin-bottom: 0!important;">
+		        <h4><i class="fa fa-info"></i> Note:</h4>
+		        Welcome to integrated manpower system. If this is your first time to use this system, please read documentation at menu beside.
+		      </div>
+		    </div>	    
 	    </section>
 	</div>
 </div>
