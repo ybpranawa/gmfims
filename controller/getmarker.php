@@ -6,24 +6,26 @@ $sql="SELECT s.*, sd.*, r.*, rq.* FROM station s JOIN station_detail sd ON s.`st
 LEFT JOIN request r ON r.`station_origin`=s.`station_id` AND r.`status_request`='1' LEFT JOIN request_qualification rq ON rq.`request_id`=r.`request_id`";
 $result=mysqli_query($conn,$sql);
 
-$data=array();
+$marker=array();
 
-echo "var statcoordinate = [";
+//L.marker([-7.370151, 112.788023], {icon: greenmarker}).addTo(mymap1).bindPopup("<b>SUB</b><br />Juanda Intl.");
 
-for ($i=0; $i < mysqli_num_rows($result) ; $i++) { 
-	$data[]=mysqli_fetch_assoc($result);
-	if ($data[$i]['status_request']==1) {
-		echo "[".$data[$i]['station_lat'],",",$data[$i]['station_long']."]";
+echo "var marker = [";
+
+for ($i=0; $i<mysqli_num_rows($result) ; $i++) { 
+	$marker[]=mysqli_fetch_assoc($result);
+	if ($marker[$i]['status_request']==1) {
+		echo "'{icon:redmarker}'";
 	}
-	else{
-		echo "[".$data[$i]['station_lat'],",",$data[$i]['station_long']."]";
+	else {
+		echo "'{icon:greenmarker}'";
 	}
+
 	if ($i<=(mysqli_num_rows($result)-2) ) {
 		echo ",";
 	}
 }
-
-echo "];";
+echo "]";
 
 
 mysqli_close($conn);

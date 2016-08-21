@@ -262,12 +262,12 @@ elseif ($_POST['action']=='Assign') {
 									<div class="input-group">
 										<select class="form-control" name="reimburstment" readonly="true">
 											<?php
-											if ($reimburstment==1) {
-												echo "<option value='1'>PBTH</option>";	
+											if ($reimburstment=='PBTH') {
+												echo "<option value='PBTH'>PBTH</option>";	
 											}
 											else
 											{
-												echo "<option value='2'>TMB</option>";		
+												echo "<option value='TMB'>TMB</option>";		
 											}
 											?>
 										</select>

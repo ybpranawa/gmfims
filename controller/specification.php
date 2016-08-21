@@ -101,8 +101,8 @@ for ($i=0;$i<$numform;$i++){
 				<label for="reimburstment" class="col-md-4 control-label">Status Reimburstment :</label>
 				<div class="input-group">
 					<select class="form-control" name="reimburstment">
-					    <option value="1">PBTH</option>
-					    <option value="2">TMB</option>
+					    <option value="PBTH">PBTH</option>
+					    <option value="TMB">TMB</option>
 					</select>
 				</div>
 			</div>

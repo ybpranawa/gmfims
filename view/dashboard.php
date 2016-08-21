@@ -171,7 +171,7 @@ session_start();
 		            </div>
 
 		            <?php
-		            $sql="SELECT r.`request_id`, r.`request_date`, r.`request_total`, r.`status_request`, s.`status_desc` FROM request r JOIN status_request s ON r.`status_request`=s.`status_id` LIMIT 7";
+		            $sql="SELECT r.`request_id`, r.`request_date`, r.`request_total`, r.`status_request`, s.`status_desc` FROM request r JOIN status_request s ON r.`status_request`=s.`status_id` WHERE r.`requester_id`='".$_SESSION['username']."' LIMIT 7";
 		            $result=mysqli_query($conn,$sql);
 		            ?>
 		            <!-- /.box-header -->

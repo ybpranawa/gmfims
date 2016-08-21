@@ -239,11 +239,15 @@ session_start();
 <script>
 <?php
 include '../controller/getmap.php';
+include '../controller/getmarker.php';
 ?>
 
 //var statcoordinate = [-3.705791,128.088876]
 
+//var hello="L.marker([-3.705791,128.088876], {icon:greenmarker}).addTo(mymap1)";
+
 var datalength=statcoordinate.length;
+
 var greenmarker = L.icon({
 	iconUrl: '../plugins/leaflet/images/greenpoint.png',
 	iconSize:     [10, 10]
@@ -258,9 +262,9 @@ var mymap1 = L.map('mapid1').setView([0.7893, 113.9213], 5);
 L.tileLayer(MB_URL, {attribution: MB_ATTR, id: 'ybpranawa.0p0gee2o'}).addTo(mymap1);
 
 for (var i = 0; i < datalength; i++) {
-	L.marker(
-		statcoordinate[i][0],
-		statcoordinate[i][1]).addTo(mymap1);
+	L.marker(statcoordinate[i], marker[i]).addTo(mymap1);
+	//console.log(marker[i]);
+	//console.log(statcoordinate[i]);
 };
 
 

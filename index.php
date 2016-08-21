@@ -370,11 +370,12 @@
 	<div id="mapid1" class="mapclass" style="height: 100%;"></div>	
 </div>
 
-
-
-
-
 <script>
+<?php
+//include 'controller/getmap.php';
+?>
+
+
 var greenmarker = L.icon({
 	iconUrl: 'plugins/leaflet/images/greenmarker.png',
 	iconSize:     [38, 38],
@@ -382,12 +383,18 @@ var greenmarker = L.icon({
 	popupAnchor:  [-20, -39]
 });
 
+//var datalength=statcoordinate.length;
+
 var mymap1 = L.map('mapid1').setView([0.7893, 113.9213], 5);
 L.tileLayer(MB_URL, {attribution: MB_ATTR, id: 'ybpranawa.0p0gee2o'}).addTo(mymap1);
 
-L.marker([-7.370151, 112.788023], {icon: greenmarker}).addTo(mymap1).bindPopup("<b>SUB</b><br />Juanda Intl.");
+/*L.marker([-7.370151, 112.788023], {icon: greenmarker}).addTo(mymap1).bindPopup("<b>SUB</b><br />Juanda Intl.");
 
 L.marker([-6.131005, 106.65609], {icon: greenmarker}).addTo(mymap1).bindPopup("<b>CGK</b><br />Soekarno-Hatta Intl.");
+*/
+/*for (var i = 0; i < datalength; i++) {
+	L.marker(statcoordinate[i], {icon:greenmarker}).addTo(mymap1);
+};*/
 
 </script>
 

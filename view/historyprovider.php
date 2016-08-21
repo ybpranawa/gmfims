@@ -155,7 +155,7 @@ session_start();
 	                </tfoot>
 	              </table>
 	              <div class="col-md-12">
-	              	<a href="#" target="_blank" class="btn btn-warning"><i class="fa fa-download"></i> Export</a>
+	              	<a href="exporthistory.php" target="_blank" class="btn btn-warning"><i class="fa fa-download"></i> Export</a>
 	              </div>
 	            </div>
 	            <!-- /.box-body -->

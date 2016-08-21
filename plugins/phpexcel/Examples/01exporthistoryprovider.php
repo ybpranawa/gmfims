@@ -57,7 +57,7 @@ $date=explode(" - ", $reqdate);
 $fromdate=date("Y-m-d",strtotime($date[0]));
 $todate=date("Y-m-d",strtotime($date[1]));
 
-$sql="SELECT * FROM request WHERE request_date>='".$fromdate."' AND request_date<='".$todate."' AND requester_id='".$_SESSION['username']."' ";
+$sql="SELECT * FROM request WHERE request_date>='".$fromdate."' AND request_date<='".$todate."' AND centralplanner_id='".$_SESSION['username']."' ";
 $result=mysqli_query($conn,$sql);
 
 // Add some data

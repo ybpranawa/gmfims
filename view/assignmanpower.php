@@ -243,6 +243,15 @@ elseif ($_POST['action']=='Assign') {
 									</div>
 								</div>
 
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="provmsg" class="col-md-4 control-label">Note to Requester :</label>
+										<div class="input-group">
+											<textarea name="provmsg" id="provmsg" class="form-control" ></textarea>
+										</div>
+									</div>
+								</div>
+
 							</div>
 							<!-- /.box-body -->
 							
