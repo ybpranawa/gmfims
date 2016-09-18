@@ -367,7 +367,8 @@
 	</header>
 </div>
 <div class="row" style="height:92%;">
-	<div id="mapid1" class="mapclass" style="height: 100%;"></div>	
+	<!-- <div id="mapid1" class="mapclass" style="height: 100%;"></div>	 -->
+	<img src="images/home.jpg" height="100%" width="100%">
 </div>
 
 <script>

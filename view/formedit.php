@@ -1,6 +1,9 @@
 <?php
-require '../config/dbconnect.php';
+
 session_start();
+if (isset($_SESSION['username'])) {
+	
+require '../config/dbconnect.php';	
 if ($_POST['action']=='Del') {
 	$sql="DELETE FROM request WHERE request_id='".$_POST['reqid']."'";
 	$result=mysqli_query($conn, $sql);
@@ -312,5 +315,9 @@ require '../template/footer.php';
 </body>
 </html>
 <?php
+}
+}
+else{
+	header("Location:../index.php");
 }
 ?>

@@ -176,7 +176,7 @@
       
       <li class="header">Documentation</li>
       <li><a href="#"><i class="fa fa-book"></i> <span>How to Use IMS</span></a></li>
-      <li><a href="#"><i class="fa fa-book"></i> <span>App Specification</span></a></li>
+      <li><a href="specification.php"><i class="fa fa-book"></i> <span>App Specification</span></a></li>
       
     </ul>
   </section>

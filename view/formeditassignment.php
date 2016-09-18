@@ -1,5 +1,7 @@
 <?php
 session_start();
+if (isset($_SESSION['username'])) {
+	
 require '../config/dbconnect.php';
 $reqid=$_POST['reqid'];
 $username=$_SESSION['username'];
@@ -417,5 +419,9 @@ require '../template/footer.php';
 </html>
 
 <?php
+}
+}
+else{
+	header("Location:../index.php");
 }
 ?>

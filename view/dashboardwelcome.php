@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+if (isset($_SESSION['username'])) {
+	
 ?>
 <!DOCTYPE html>
 <html>
@@ -171,3 +174,9 @@ for (var i = 0; i < datalength; i++) {
 </script>
 </body>
 </html>
+<?php
+}
+else{
+	header("Location:../index.php");
+}
+?>
